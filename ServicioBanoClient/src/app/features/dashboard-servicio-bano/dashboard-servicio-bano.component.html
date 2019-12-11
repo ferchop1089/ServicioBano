@@ -4,12 +4,13 @@
             <div class="col-md-2 border">
                 <div class="list-group">
                     <h6 class="list-group-item list-group-item-action active">Acciones</h6>
-                    <a href="#" class="list-group-item list-group-item-action">Agregar</a>
+                    <a [routerLink]="['listarbano']" class="list-group-item list-group-item-action">Listar baño</a>
+                    <a [routerLink]="['crearbano']" class="list-group-item list-group-item-action">Agregar baño</a>
                     <a href="#" class="list-group-item list-group-item-action">Configurar</a>
                 </div>
             </div>
             <div class="col-md-10 border">
-                <app-listar-banos></app-listar-banos>
+                <router-outlet></router-outlet>
             </div>
         </div>
     </div>

@@ -9,7 +9,8 @@ import { FooterComponent } from './shared/pagina-principal/footer/footer.compone
 import { InicioComponent } from './features/inicio/inicio.component';
 import { Pagina404Component } from './shared/pagina-principal/pagina404/pagina404.component';
 import { DashboardServicioBanoComponent } from './features/dashboard-servicio-bano/dashboard-servicio-bano.component';
-import { ListarBanosComponent } from './features/listar-banos/listar-banos.component';
+import { ListarBanosComponent } from './features/bano/listar-banos/listar-banos.component';
+import { CrearBanoComponent } from './features/bano/crear-bano/crear-bano.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ListarBanosComponent } from './features/listar-banos/listar-banos.compo
     Pagina404Component,
     DashboardServicioBanoComponent,
     ListarBanosComponent,
+    CrearBanoComponent
   ],
   imports: [
     BrowserModule,
