@@ -1,4 +1,4 @@
-package com.ceiba.adn.serviciobano.comun;
+package com.ceiba.adn.serviciobano.infraestructura.adaptador.propiedades;
 
 import java.io.IOException;
 import java.io.InputStream;

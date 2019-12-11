@@ -1,6 +1,8 @@
-package com.ceiba.adn.serviciobano.comun;
+package com.ceiba.adn.serviciobano.infraestructura.adaptador.propiedades;
 
 import java.util.Properties;
+
+import com.ceiba.adn.serviciobano.comun.puerto.Propiedades;
 
 public final class FabricaPropiedades {
 
@@ -23,7 +25,7 @@ public final class FabricaPropiedades {
 	}
 
 	private static Propiedades getPropiedades(String archivoPropiedad) {
-		return new ArchivoPropiedades(
+		return new ArchivoPropiedadesAdaptador(
 				new CargarArchivoPropiedades(archivoPropiedad, new Properties()).getPropiedades());
 	}
 

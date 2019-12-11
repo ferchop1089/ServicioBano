@@ -1,4 +1,4 @@
-package com.ceiba.adn.serviciobano.comun;
+package com.ceiba.adn.serviciobano.infraestructura.adaptador.propiedades;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -8,9 +8,9 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.ceiba.adn.serviciobano.comun.FabricaPropiedades;
-import com.ceiba.adn.serviciobano.comun.Propiedades;
+import com.ceiba.adn.serviciobano.comun.puerto.Propiedades;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionValorInvalido;
+import com.ceiba.adn.serviciobano.infraestructura.adaptador.propiedades.FabricaPropiedades;
 
 public class FabricaPropiedadesTest {
 

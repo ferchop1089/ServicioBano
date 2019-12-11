@@ -17,8 +17,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.ceiba.adn.serviciobano.comun.FabricaPropiedades;
-import com.ceiba.adn.serviciobano.comun.Propiedades;
+import com.ceiba.adn.serviciobano.comun.puerto.Propiedades;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionRestriccion;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionValorInvalido;
@@ -27,6 +26,7 @@ import com.ceiba.adn.serviciobano.dominio.modelo.Cuenta;
 import com.ceiba.adn.serviciobano.dominio.modelo.EstadoBano;
 import com.ceiba.adn.serviciobano.dominio.puerto.repositorio.RepositorioBano;
 import com.ceiba.adn.serviciobano.dominio.puerto.repositorio.RepositorioCuenta;
+import com.ceiba.adn.serviciobano.infraestructura.adaptador.propiedades.FabricaPropiedades;
 import com.ceiba.adn.serviciobano.testdatabuilder.CuentaTestDataBuilder;
 
 public class ServicioCrearCuentaTest {

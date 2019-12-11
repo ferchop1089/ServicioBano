@@ -1,4 +1,4 @@
-package com.ceiba.adn.serviciobano.comun;
+package com.ceiba.adn.serviciobano.infraestructura.adaptador.propiedades;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -22,6 +22,7 @@ import org.mockito.MockitoAnnotations;
 import com.ceiba.adn.serviciobano.comun.excepcion.ExcepcionLecturaArchivo;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionValorObligatorio;
+import com.ceiba.adn.serviciobano.infraestructura.adaptador.propiedades.CargarArchivoPropiedades;
 
 public class CargarArchivoPropiedadesTest {
 

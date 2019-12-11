@@ -1,4 +1,4 @@
-package com.ceiba.adn.serviciobano.comun;
+package com.ceiba.adn.serviciobano.infraestructura.adaptador.propiedades;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -15,9 +15,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.ceiba.adn.serviciobano.comun.ArchivoPropiedades;
-import com.ceiba.adn.serviciobano.comun.Propiedades;
+import com.ceiba.adn.serviciobano.comun.puerto.Propiedades;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionValorInvalido;
+import com.ceiba.adn.serviciobano.infraestructura.adaptador.propiedades.ArchivoPropiedadesAdaptador;
 
 public class ArchivoPropiedadesTest {
 
@@ -32,7 +32,7 @@ public class ArchivoPropiedadesTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		doReturn(prop).when(prop).clone();
-		propiedad = new ArchivoPropiedades(prop);
+		propiedad = new ArchivoPropiedadesAdaptador(prop);
 	}
 
 	@Test

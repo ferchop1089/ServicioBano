@@ -4,7 +4,7 @@ import static com.ceiba.adn.serviciobano.dominio.comun.ValidadorArgumento.valida
 
 import java.util.Objects;
 
-import com.ceiba.adn.serviciobano.comun.Propiedades;
+import com.ceiba.adn.serviciobano.comun.puerto.Propiedades;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.adn.serviciobano.dominio.modelo.Cuenta;

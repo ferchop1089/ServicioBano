@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
-import com.ceiba.adn.serviciobano.comun.Propiedades;
+import com.ceiba.adn.serviciobano.comun.puerto.Propiedades;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.adn.serviciobano.dominio.modelo.Cuenta;
 import com.ceiba.adn.serviciobano.dominio.puerto.repositorio.RepositorioCuenta;

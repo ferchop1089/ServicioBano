@@ -1,4 +1,4 @@
-package com.ceiba.adn.serviciobano.comun;
+package com.ceiba.adn.serviciobano.comun.puerto;
 
 public interface Propiedades {
 

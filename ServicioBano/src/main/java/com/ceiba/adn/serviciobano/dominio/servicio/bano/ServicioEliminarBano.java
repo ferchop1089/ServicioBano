@@ -2,7 +2,7 @@ package com.ceiba.adn.serviciobano.dominio.servicio.bano;
 
 import static com.ceiba.adn.serviciobano.dominio.comun.ValidadorArgumento.validarObligatorio;
 
-import com.ceiba.adn.serviciobano.comun.Propiedades;
+import com.ceiba.adn.serviciobano.comun.puerto.Propiedades;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionRestriccion;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.adn.serviciobano.dominio.modelo.EstadoBano;

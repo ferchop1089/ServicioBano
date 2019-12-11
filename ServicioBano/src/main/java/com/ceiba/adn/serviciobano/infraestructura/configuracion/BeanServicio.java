@@ -8,8 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
-import com.ceiba.adn.serviciobano.comun.FabricaPropiedades;
-import com.ceiba.adn.serviciobano.comun.Propiedades;
+import com.ceiba.adn.serviciobano.comun.puerto.Propiedades;
 import com.ceiba.adn.serviciobano.dominio.puerto.repositorio.RepositorioBano;
 import com.ceiba.adn.serviciobano.dominio.puerto.repositorio.RepositorioCuenta;
 import com.ceiba.adn.serviciobano.dominio.servicio.bano.ServicioActualizarBano;
@@ -19,6 +18,7 @@ import com.ceiba.adn.serviciobano.dominio.servicio.bano.ServicioEliminarBano;
 import com.ceiba.adn.serviciobano.dominio.servicio.cuenta.ServicioActualizarCuenta;
 import com.ceiba.adn.serviciobano.dominio.servicio.cuenta.ServicioCobrarCuenta;
 import com.ceiba.adn.serviciobano.dominio.servicio.cuenta.ServicioCrearCuenta;
+import com.ceiba.adn.serviciobano.infraestructura.adaptador.propiedades.FabricaPropiedades;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

@@ -7,12 +7,12 @@ import static com.ceiba.adn.serviciobano.dominio.comun.ValidadorArgumento.valida
 
 import java.text.MessageFormat;
 
-import com.ceiba.adn.serviciobano.comun.FabricaPropiedades;
-import com.ceiba.adn.serviciobano.comun.Propiedades;
+import com.ceiba.adn.serviciobano.comun.puerto.Propiedades;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionLongitudValor;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionValorObligatorio;
 import com.ceiba.adn.serviciobano.dominio.modelo.EstadoBano;
+import com.ceiba.adn.serviciobano.infraestructura.adaptador.propiedades.FabricaPropiedades;
 
 /**
  * The Class ValidarCamposBano.
