@@ -1,0 +1,2 @@
+INSERT INTO Bano(id, identificador, estado) VALUES (41,'Bano 41','OCUPADO');
+INSERT INTO Cuenta (id, sobres, id_Bano, estado, total_Cobro, fecha_Ingreso) VALUES (40, 5, 41, 'ABIERTA', 0, {ts '2019-12-09 11:30:00.00'});
