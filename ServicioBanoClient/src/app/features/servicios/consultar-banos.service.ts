@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Bano } from 'src/app/core/modelo/Bano';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class ConsultarBanosService {
     console.log('Servicio iniciado');
   }
 
-  public getBanos(): Bano[] {
+  getBanos(): Bano[] {
     return this.listaBanos;
   }
 
@@ -45,10 +46,4 @@ export class ConsultarBanosService {
     return this.listaBanos[id];
   }
 
-}
-
-export interface Bano {
-  id: number;
-  identificador: string;
-  estado: string;
 }

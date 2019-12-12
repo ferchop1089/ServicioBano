@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { CompartirIdBanoService } from '../../../shared/eventos/compartir-id-bano.service';
+import { GestionBanoService } from '../../servicios/bano/gestion-bano.service';
+import { EventoEliminarBanoService } from '../../../shared/eventos/evento-eliminar-bano.service';
+import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.service';
+//import * as $ from 'jquery';
 
 @Component({
   selector: 'app-eliminar-bano',
@@ -7,9 +12,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EliminarBanoComponent implements OnInit {
 
-  constructor() { }
+  idBano: number;
+
+  @ViewChild('mmodalOcultar', { static: false })
+  closeModal: ElementRef;
+
+  constructor(private shared: CompartirIdBanoService, private eventEliminar: EventoEliminarBanoService, private eventAlert: EventoAlertService, private gestion: GestionBanoService) {
+  }
 
   ngOnInit() {
+    this.shared.changeEmitted$.subscribe(id => {
+      this.idBano = id;
+    });
+    this.eventEliminar.changeEmitted$.subscribe(item => {
+      const tipoAlerta = 'alert-success';
+      const mensaje = 'El registro fue borrado <strong>exitosamente</strong>';
+      // $('#eliminarBanoModal').modal('hide');
+      this.closeModal.nativeElement.click();
+      this.eventAlert.emitChange(new Alert(tipoAlerta, mensaje));
+    });
+  }
+
+  public eliminar() {
+    this.gestion.eliminarBano(this.idBano);
   }
 
 }

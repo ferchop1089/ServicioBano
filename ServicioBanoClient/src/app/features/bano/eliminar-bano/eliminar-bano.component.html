@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="eliminarBanoModal" tabindex="-1" role="dialog" aria-labelledby="eliminarBanoModalLabel" aria-hidden="true">
+<div class="modal fade" #mmodalOcultar id="eliminarBanoModal" tabindex="-1" role="dialog" aria-labelledby="eliminarBanoModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,11 +9,11 @@
                                       </button>
             </div>
             <div class="modal-body">
-                ¿Está seguro de eliminar el baño?
+                ¿Está seguro de eliminar el baño con el id {{ idBano }}?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary mr-2" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-outline-primary">Confirmar</button>
+                <button type="button" (click)="eliminar()" class="btn btn-outline-primary">Confirmar</button>
             </div>
         </div>
     </div>

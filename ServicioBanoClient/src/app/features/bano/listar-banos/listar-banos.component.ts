@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ConsultarBanosService, Bano } from '../../servicios/consultar-banos.service';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { faCog, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { GestionBanoService } from '../../servicios/bano/gestion-bano.service';
+import { Bano } from '../../../core/modelo/Bano';
+import { EventoEliminarBanoService } from '../../../shared/eventos/evento-eliminar-bano.service';
+import { CompartirIdBanoService } from 'src/app/shared/eventos/compartir-id-bano.service';
 
 @Component({
   selector: 'app-listar-banos',
@@ -17,11 +20,20 @@ export class ListarBanosComponent implements OnInit {
   faCog = faCog;
   faTimes = faTimes;
 
+  constructor(private router: Router, private activateRoute: ActivatedRoute,
+    private gestion: GestionBanoService,
+    private shared: CompartirIdBanoService,
+    private eventEliminar: EventoEliminarBanoService) {
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private _consultarBanosService: ConsultarBanosService) { }
+  }
 
   ngOnInit() {
-    const lista: Bano[] = this._consultarBanosService.getBanos();
+    this.eventEliminar.changeEmitted$.subscribe(item => {
+      const index = this.listaBanos.findIndex(x => x.id === item.id);
+      this.listaBanos.splice(index, 1);
+    });
+
+    const lista: Bano[] = this.gestion.getBanos();
     for (let index = 0; index < lista.length; index++) {
       const element: Bano = lista[index];
       let clase: string;
@@ -40,7 +52,7 @@ export class ListarBanosComponent implements OnInit {
       const l: Bano2 = new Bano2(element.id, element.identificador, element.estado, clase, habilitar);
       this.listaBanos[index] = l;
     }
-    // console.log(this.listaBanos);
+    console.log('Finaliza el ngOnInit del listar baños. Elementos listados: ' + this.listaBanos.length);
   }
 
   public redireccionar(estado: string, id: number) {
@@ -55,6 +67,10 @@ export class ListarBanosComponent implements OnInit {
 
   public redireccionarConfigBano(id: number) {
     this.router.navigate(['../actualizarbano', id], { relativeTo: this.activateRoute });
+  }
+
+  public publicarIdBano(id: number) {
+    this.shared.emitChange(id);
   }
 
 }

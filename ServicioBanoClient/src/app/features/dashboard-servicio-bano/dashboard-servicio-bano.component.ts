@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventoAlertService, Alert } from '../../shared/eventos/evento-alert.service';
 
 @Component({
   selector: 'app-dashboard-servicio-bano',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardServicioBanoComponent implements OnInit {
 
-  constructor() { }
+  showMensajeExitoso = false;
+  tipoAlert: string;
+  mensaje: string;
+
+  constructor(private alert: EventoAlertService) { }
 
   ngOnInit() {
+    this.alert.changeEmitted$.subscribe(alert => {
+      console.log('paso alerta enviada');
+      this.tipoAlert = alert.tipoAlerta;
+      this.mensaje = alert.mensaje;
+      this.showMensajeExitoso = true;
+    });
+  }
+
+  public ocultarMensaje() {
+    this.showMensajeExitoso = false;
+    console.log('se ocultó el mensaje');
   }
 
 }

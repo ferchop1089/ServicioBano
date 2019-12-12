@@ -13,10 +13,11 @@ import { ListarBanosComponent } from './features/bano/listar-banos/listar-banos.
 import { CrearBanoComponent } from './features/bano/crear-bano/crear-bano.component';
 import { ActualizarBanoComponent } from './features/bano/actualizar-bano/actualizar-bano.component';
 import { EliminarBanoComponent } from './features/bano/eliminar-bano/eliminar-bano.component';
-import { CrearBanoService } from './features/servicios/crear-bano.service';
 import { CrearCuentaComponent } from './features/cuenta/crear-cuenta/crear-cuenta.component';
 import { ActualizarCuentaComponent } from './features/cuenta/actualizar-cuenta/actualizar-cuenta.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { GestionBanoService } from './features/servicios/bano/gestion-bano.service';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,9 +38,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
-  providers: [CrearBanoService],
+  providers: [GestionBanoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

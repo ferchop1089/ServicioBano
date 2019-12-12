@@ -1,17 +1,20 @@
 <div class="row animated fadeIn fast">
+    <div *ngIf="listaBanos.length === 0" class="container text-center">
+        No hay elementos registrados
+    </div>
     <div class="col-sm-3 mb-1" *ngFor="let bano of listaBanos">
         <div class="card">
             <div class="row">
                 <div class="col-6 text-left">
                     <div class="previous">
-                        <button type="button" class="btn btn-default btn-lg" [disabled]="!bano.habilitar" (click)="redireccionarConfigBano(bano.id)">
+                        <button type="button" class="btn btn-default btn-lg" (click)="redireccionarConfigBano(bano.id)" title="Actualizar baño">
                             <fa-icon [icon]="faCog"></fa-icon>
                         </button>
                     </div>
                 </div>
                 <div class="col-6 text-right">
                     <div class="next">
-                        <button type="button" class="btn btn-default btn-lg" [disabled]="!bano.habilitar" data-toggle="modal" data-target="#eliminarBanoModal">
+                        <button type="button" class="btn btn-default btn-lg" [disabled]="!bano.habilitar" (click)="publicarIdBano(bano.id)" title="Eliminar baño" data-toggle="modal" data-target="#eliminarBanoModal">
                             <fa-icon [icon]="faTimes"></fa-icon>
                         </button>
                     </div>
