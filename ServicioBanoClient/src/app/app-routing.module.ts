@@ -7,6 +7,7 @@ import { CrearBanoComponent } from './features/bano/crear-bano/crear-bano.compon
 import { ListarBanosComponent } from './features/bano/listar-banos/listar-banos.component';
 import { ActualizarBanoComponent } from './features/bano/actualizar-bano/actualizar-bano.component';
 import { CrearCuentaComponent } from './features/cuenta/crear-cuenta/crear-cuenta.component';
+import { ActualizarCuentaComponent } from './features/cuenta/actualizar-cuenta/actualizar-cuenta.component';
 
 const routes: Routes = [
   { path: 'inicio', component: InicioComponent },
@@ -16,8 +17,9 @@ const routes: Routes = [
     children: [
       { path: 'listarbano', component: ListarBanosComponent },
       { path: 'crearbano', component: CrearBanoComponent },
-      { path: 'actualizarbano', component: ActualizarBanoComponent },
+      { path: 'actualizarbano/:id', component: ActualizarBanoComponent },
       { path: 'crearcuenta/:id', component: CrearCuentaComponent },
+      { path: 'actualizarcuenta/:id', component: ActualizarCuentaComponent },
       { path: '', redirectTo: 'listarbano', pathMatch: 'full' }
     ]
   },

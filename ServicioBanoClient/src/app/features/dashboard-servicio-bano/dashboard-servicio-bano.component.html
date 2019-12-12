@@ -1,16 +1,15 @@
 <div class="animated fadeIn fast">
     <div class="container-fluid">
-        <div class="row border border-primary">
-            <div class="col-md-2 border border-primary">
+        <div class="row">
+            <div class="col-md-2 shadow-lg p-3 mb-5 bg-white rounded">
                 <div class="list-group">
                     <h6 class="list-group-item list-group-item-action active">Acciones</h6>
                     <a [routerLink]="['listarbano']" class="list-group-item list-group-item-action">Listar baño</a>
                     <a [routerLink]="['crearbano']" class="list-group-item list-group-item-action">Agregar baño</a>
-                    <a [routerLink]="['actualizarbano']" class="list-group-item list-group-item-action">Actualizar baño</a>
-                    <a href="#" class="list-group-item list-group-item-action">Configurar</a>
+                    <!--<a href="#" class="list-group-item list-group-item-action">Configurar</a>-->
                 </div>
             </div>
-            <div class="col-md-10 border border-primary">
+            <div class="col-md-10 shadow-lg p-3 mb-5 bg-white rounded">
                 <router-outlet></router-outlet>
             </div>
         </div>

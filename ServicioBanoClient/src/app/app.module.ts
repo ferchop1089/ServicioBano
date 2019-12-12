@@ -15,6 +15,8 @@ import { ActualizarBanoComponent } from './features/bano/actualizar-bano/actuali
 import { EliminarBanoComponent } from './features/bano/eliminar-bano/eliminar-bano.component';
 import { CrearBanoService } from './features/servicios/crear-bano.service';
 import { CrearCuentaComponent } from './features/cuenta/crear-cuenta/crear-cuenta.component';
+import { ActualizarCuentaComponent } from './features/cuenta/actualizar-cuenta/actualizar-cuenta.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -29,11 +31,13 @@ import { CrearCuentaComponent } from './features/cuenta/crear-cuenta/crear-cuent
     CrearBanoComponent,
     ActualizarBanoComponent,
     EliminarBanoComponent,
-    CrearCuentaComponent
+    CrearCuentaComponent,
+    ActualizarCuentaComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule
   ],
   providers: [CrearBanoService],
   bootstrap: [AppComponent]

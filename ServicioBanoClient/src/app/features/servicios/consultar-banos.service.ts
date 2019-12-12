@@ -9,7 +9,7 @@ export class ConsultarBanosService {
     {
       id: 1,
       identificador: 'Baño 1',
-      estado: 'OCUPADO'
+      estado: 'FUERA DE SERVICIO'
     },
     {
       id: 2,
@@ -39,6 +39,10 @@ export class ConsultarBanosService {
 
   public getBanos(): Bano[] {
     return this.listaBanos;
+  }
+
+  public getBano(id: number): Bano {
+    return this.listaBanos[id];
   }
 
 }

@@ -1,1 +1,9 @@
-<p>actualizar-bano works!</p>
+<form>
+    <div class="form-group animated fadeIn fast">
+        <label for="nombreBano">Nombre</label>
+        <input type="text" class="form-control" id="nombreBano" aria-describedby="nombreBanoHelp">
+        <small id="nombreBanoHelp" class="form-text text-muted">El nombre del baño no debe repetirse.</small>
+    </div>
+    <a [routerLink]="['../../listarbano']" class="btn btn-outline-secondary mr-2">Cancelar</a>
+    <button type="submit" class="btn btn-outline-primary">Actualizar</button>
+</form>

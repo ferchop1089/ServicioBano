@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ConsultarBanosService } from '../../servicios/consultar-banos.service';
 
 @Component({
   selector: 'app-crear-cuenta',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrearCuentaComponent implements OnInit {
 
-  constructor() { }
+  private id: number;
+
+  constructor(private activateRouter: ActivatedRoute, private _consultarBanosService: ConsultarBanosService) {
+    this.activateRouter.params.subscribe(params => {
+      this.id = params.id;
+    });
+  }
 
   ngOnInit() {
   }
