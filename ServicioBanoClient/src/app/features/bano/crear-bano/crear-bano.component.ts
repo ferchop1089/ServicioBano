@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CrearBanoService } from '../../servicios/crear-bano.service';
 
 @Component({
   selector: 'app-crear-bano',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrearBanoComponent implements OnInit {
 
-  constructor() { }
+  
+
+  constructor(private _crearBanoServicio: CrearBanoService) { }
 
   ngOnInit() {
+    
   }
 
 }

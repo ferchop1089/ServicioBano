@@ -11,6 +11,10 @@ import { Pagina404Component } from './shared/pagina-principal/pagina404/pagina40
 import { DashboardServicioBanoComponent } from './features/dashboard-servicio-bano/dashboard-servicio-bano.component';
 import { ListarBanosComponent } from './features/bano/listar-banos/listar-banos.component';
 import { CrearBanoComponent } from './features/bano/crear-bano/crear-bano.component';
+import { ActualizarBanoComponent } from './features/bano/actualizar-bano/actualizar-bano.component';
+import { EliminarBanoComponent } from './features/bano/eliminar-bano/eliminar-bano.component';
+import { CrearBanoService } from './features/servicios/crear-bano.service';
+import { CrearCuentaComponent } from './features/cuenta/crear-cuenta/crear-cuenta.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +26,16 @@ import { CrearBanoComponent } from './features/bano/crear-bano/crear-bano.compon
     Pagina404Component,
     DashboardServicioBanoComponent,
     ListarBanosComponent,
-    CrearBanoComponent
+    CrearBanoComponent,
+    ActualizarBanoComponent,
+    EliminarBanoComponent,
+    CrearCuentaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [CrearBanoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,6 +5,8 @@ import { Pagina404Component } from './shared/pagina-principal/pagina404/pagina40
 import { DashboardServicioBanoComponent } from './features/dashboard-servicio-bano/dashboard-servicio-bano.component';
 import { CrearBanoComponent } from './features/bano/crear-bano/crear-bano.component';
 import { ListarBanosComponent } from './features/bano/listar-banos/listar-banos.component';
+import { ActualizarBanoComponent } from './features/bano/actualizar-bano/actualizar-bano.component';
+import { CrearCuentaComponent } from './features/cuenta/crear-cuenta/crear-cuenta.component';
 
 const routes: Routes = [
   { path: 'inicio', component: InicioComponent },
@@ -14,6 +16,8 @@ const routes: Routes = [
     children: [
       { path: 'listarbano', component: ListarBanosComponent },
       { path: 'crearbano', component: CrearBanoComponent },
+      { path: 'actualizarbano', component: ActualizarBanoComponent },
+      { path: 'crearcuenta/:id', component: CrearCuentaComponent },
       { path: '', redirectTo: 'listarbano', pathMatch: 'full' }
     ]
   },
