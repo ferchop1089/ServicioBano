@@ -9,7 +9,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ bano.identificador }}</h5>
                 <p class="card-text" [ngClass]="bano.clase">{{ bano.estado }}</p>
-                <a [routerLink]="['crearcuenta',bano.id]" class="btn btn-info btn-block">Modificar</a>
+                <a [routerLink]="['../crearcuenta',bano.id]" class="btn btn-info btn-block">Modificar</a>
             </div>
         </div>
     </div>
