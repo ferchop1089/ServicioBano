@@ -1,6 +1,7 @@
 package com.ceiba.adn.serviciobano.infraestructura.controlador;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -36,6 +37,7 @@ public class ComandoControladorBanoIT {
 	private static final String ENDPOINT_CREAR = URL_BASE + "/crear";
 	private static final String ENDPOINT_ACTUALIZAR = URL_BASE + "/actualizar";
 	private static final String ENDPOINT_ELIMINAR = URL_BASE + "/eliminar/{id}";
+	private static final String ENDPOINT_CONSULTAR = URL_BASE + "/consultar";
 
 	@Autowired
 	private ObjectMapper objectMapperTest;
@@ -224,6 +226,16 @@ public class ComandoControladorBanoIT {
 		// act - assert
 		mockMvc.perform(delete(ENDPOINT_ELIMINAR, id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isPreconditionFailed());
+	}
+
+	@Test
+	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/consultar/data-insert-5-banos.sql")
+	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/consultar/data-delete-5-banos.sql")
+	public void cuandoPeticionConsultarBanosOkEntoncesDeberiaRetornarConsulta() throws Exception {
+		// arrange - act - assert
+		mockMvc.perform(
+				get(ENDPOINT_CONSULTAR).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andDo(print()).andExpect(status().isOk());
 	}
 
 }

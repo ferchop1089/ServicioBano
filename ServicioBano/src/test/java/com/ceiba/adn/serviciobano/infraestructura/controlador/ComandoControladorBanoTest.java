@@ -11,6 +11,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -39,6 +40,7 @@ import org.springframework.util.MimeTypeUtils;
 import com.ceiba.adn.serviciobano.aplicacion.comando.ComandoBano;
 import com.ceiba.adn.serviciobano.aplicacion.comando.ComandoRespuesta;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorActualizarBano;
+import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorConsultasBano;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorCrearBano;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorEliminarBano;
 import com.ceiba.adn.serviciobano.infraestructura.controlador.ComandoControladorBanoTest.ConfiguracionDependencias;
@@ -60,6 +62,7 @@ public class ComandoControladorBanoTest {
 	private static final String ENDPOINT_CREAR = URL_BASE + "/crear";
 	private static final String ENDPOINT_ACTUALIZAR = URL_BASE + "/actualizar";
 	private static final String ENDPOINT_ELIMINAR = URL_BASE + "/eliminar/{id}";
+	private static final String ENDPOINT_CONSULTAR = URL_BASE + "/consultar";
 
 	@Autowired
 	private ManejadorCrearBano crearBano;
@@ -69,6 +72,9 @@ public class ComandoControladorBanoTest {
 
 	@Autowired
 	private ManejadorEliminarBano eliminarBano;
+	
+	@Autowired
+	private ManejadorConsultasBano consultasBano;
 
 	private ComandoControladorBano controlador;
 
@@ -79,7 +85,7 @@ public class ComandoControladorBanoTest {
 
 	@Before
 	public void setUp() {
-		controlador = new ComandoControladorBano(crearBano, actualizarBano, eliminarBano);
+		controlador = new ComandoControladorBano(crearBano, actualizarBano, eliminarBano, consultasBano);
 		mockMvc = MockMvcBuilders.standaloneSetup(controlador).build();
 	}
 
@@ -256,6 +262,14 @@ public class ComandoControladorBanoTest {
 		mockMvc.perform(delete(ENDPOINT_ELIMINAR, id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isInternalServerError());
 	}
+	
+	@Test
+	public void cuandoPeticionConsultarBanosOkEntoncesDeberiaRetornarConsulta() throws Exception {
+		// arrange - act - assert
+		mockMvc.perform(
+				get(ENDPOINT_CONSULTAR).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andDo(print()).andExpect(status().isOk());
+	}
 
 	@TestConfiguration
 	protected static class ConfiguracionDependencias {
@@ -279,6 +293,12 @@ public class ComandoControladorBanoTest {
 		@Scope("prototype")
 		public ManejadorEliminarBano crearManejadorEliminarBano() {
 			return mock(ManejadorEliminarBano.class);
+		}
+		
+		@Bean
+		@Scope("prototype")
+		public ManejadorConsultasBano crearManejadorConsultasBano() {
+			return mock(ManejadorConsultasBano.class);
 		}
 
 		public static final String FORMATO_LOCAL_DATE_TIME = "yyyy-MM-dd HH:mm:ss";

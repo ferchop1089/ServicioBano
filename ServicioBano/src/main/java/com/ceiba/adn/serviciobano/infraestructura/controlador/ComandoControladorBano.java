@@ -1,8 +1,11 @@
 package com.ceiba.adn.serviciobano.infraestructura.controlador;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.ceiba.adn.serviciobano.aplicacion.comando.ComandoBano;
 import com.ceiba.adn.serviciobano.aplicacion.comando.ComandoRespuesta;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorActualizarBano;
+import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorConsultasBano;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorCrearBano;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorEliminarBano;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionDuplicidad;
@@ -30,12 +34,14 @@ public class ComandoControladorBano {
 	private ManejadorCrearBano crearBano;
 	private ManejadorActualizarBano actualizarBano;
 	private ManejadorEliminarBano eliminarBano;
+	private ManejadorConsultasBano consultasBano;
 
-	public ComandoControladorBano(ManejadorCrearBano crearBano,
-			ManejadorActualizarBano actualizarBano, ManejadorEliminarBano eliminarBano) {
+	public ComandoControladorBano(ManejadorCrearBano crearBano, ManejadorActualizarBano actualizarBano,
+			ManejadorEliminarBano eliminarBano, ManejadorConsultasBano consultasBano) {
 		this.crearBano = crearBano;
 		this.actualizarBano = actualizarBano;
 		this.eliminarBano = eliminarBano;
+		this.consultasBano = consultasBano;
 	}
 
 	@PostMapping(value = "/crear", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
@@ -77,6 +83,11 @@ public class ComandoControladorBano {
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
 		}
+	}
+
+	@GetMapping(value = "/consultar", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+	public ComandoRespuesta<List<ComandoBano>> consultarBanos() {
+		return consultasBano.ejecutar();
 	}
 
 }

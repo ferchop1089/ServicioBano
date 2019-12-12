@@ -61,6 +61,26 @@ public class ServicioConsultasBanoTest {
 	}
 
 	@Test
+	public void cuandoConsultaBanosEntoncesRetornaLista() {
+		// arrange
+		List<Bano> lista = new ArrayList<>();
+		lista.add(new BanoTestDataBuilder().withId(1L).withIdentificador("Baño 1").build());
+		lista.add(new BanoTestDataBuilder().withId(2L).withIdentificador("Baño 2").build());
+		lista.add(new BanoTestDataBuilder().withId(3L).withIdentificador("Baño 3").build());
+		
+		doReturn(lista).when(repositorio).listar();
+
+		// act
+		List<Bano> listaSource = servicio.listarBanos();
+
+		// assert
+		assertThat(listaSource, is(notNullValue()));
+		assertThat(listaSource.size(), equalTo(3));
+
+		verify(repositorio, times(1)).listar();
+	}
+	
+	@Test
 	public void cuandoBuscaBanoPorIdentificadorEntoncesRetornaBano() {
 		// arrange
 		Bano bano = new BanoTestDataBuilder().build();
@@ -115,26 +135,6 @@ public class ServicioConsultasBanoTest {
 		ArgumentCaptor<String> objCaptor = ArgumentCaptor.forClass(String.class);
 		verify(repositorio).existePorIdentificador(objCaptor.capture());
 		assertThat(objCaptor.getValue(), is(bano.getIdentificador()));
-	}
-
-	@Test
-	public void cuandoConsultaBanosEntoncesRetornaLista() {
-		// arrange
-		List<Bano> lista = new ArrayList<>();
-		lista.add(new BanoTestDataBuilder().withId(1L).withIdentificador("Baño 1").build());
-		lista.add(new BanoTestDataBuilder().withId(2L).withIdentificador("Baño 2").build());
-		lista.add(new BanoTestDataBuilder().withId(3L).withIdentificador("Baño 3").build());
-		
-		doReturn(lista).when(repositorio).listar();
-
-		// act
-		List<Bano> listaSource = servicio.listarBanos();
-
-		// assert
-		assertThat(listaSource, is(notNullValue()));
-		assertThat(listaSource.size(), equalTo(3));
-
-		verify(repositorio, times(1)).listar();
 	}
 
 }
