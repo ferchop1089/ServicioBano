@@ -57,7 +57,6 @@ public class ComandoControladorCuenta {
 		} catch (ExcepcionDuplicidad e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
 		}
 	}
