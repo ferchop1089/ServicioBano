@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.service';
 import { ComandoRespuestaBano, ComandoRespuestaBanoLista } from '../../../core/modelo/ComandoRespuesta';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -30,18 +31,11 @@ export class GestionBanoService {
     return this.http.get<ComandoRespuestaBano>(this.baseUrl + '/consultar/' + id, this.httpOptions);
   }
 
-  public crearBano(bano: Bano) {
-    bano.id = this.listaBanos.length + 1;
-    this.listaBanos.push(bano);
-    console.log('Se agregó nuevo elemento a la lista, id del elemento: ' + bano.id);
-    console.log('Número de elementos: ' + this.listaBanos.length);
-  }
-
-  public ActualizarBano(bano: Bano) {
-    const index = this.listaBanos.findIndex(x => x.id === bano.id);
-    if (index > -1) {
-      this.listaBanos[index] = bano;
-    }
+  public crearBanoRest(bano: Bano): Observable<ComandoRespuestaBano> {
+    return this.http.post<number>(this.baseUrl + '/crear', bano, this.httpOptions)
+      .pipe(map(idNuevo => {
+        return new ComandoRespuestaBano(new Bano(idNuevo, bano.identificador, bano.estado));
+      }), catchError(err => this.errorHandl(err)));
   }
 
   public ActualizarBanoRest(bano: Bano) {
@@ -59,7 +53,7 @@ export class GestionBanoService {
     return this.http.delete<Bano>(this.baseUrl + '/eliminar/' + id, this.httpOptions);
   }
 
-  public errorHandl(error) {
+  public errorHandl(error: { error: { message: string; }; status: any; }) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // Get client-side error
@@ -69,7 +63,7 @@ export class GestionBanoService {
       errorMessage = `Error Code: ${error.status}\n, Message: ${error.error.message}`;
     }
     console.log(errorMessage);
-    this.eventAlert.emitChange(new Alert('alert-danger', errorMessage));
+    this.eventAlert.emitChange(new Alert('alert-danger', error.error.message));
     return throwError(errorMessage);
   }
 

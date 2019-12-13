@@ -1,8 +1,12 @@
-<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+<form [formGroup]="checkoutForm" (ngSubmit)="submit()">
     <div class="form-group animated fadeIn fast">
-        <label for="nombreBano">Nombre</label>
-        <input type="text" formControlName="identificador" class="form-control" id="nombreBano" aria-describedby="nombreBanoHelp" required>
-        <small id="nombreBanoHelp" class="form-text text-muted">El nombre del baño no debe repetirse.</small>
+        <label for="identificador">Nombre</label>
+        <input type="text" formControlName="identificador" class="form-control" id="identificador" aria-describedby="identificadorHelp" required>
+        <small id="identificadorHelp" class="form-text text-muted">El nombre del baño no debe repetirse.</small>
+
+        <div *ngIf="checkoutForm.controls.identificador.errors && checkoutForm.controls.identificador.touched" class="error">
+            *Campo requerido
+        </div>
     </div>
     <button type="submit" class="btn btn-outline-primary">Crear</button>
 </form>
