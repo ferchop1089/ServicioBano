@@ -5,7 +5,7 @@ import { GestionBanoService } from '../../servicios/bano/gestion-bano.service';
 import { Bano } from '../../../core/modelo/Bano';
 import { EventoEliminarBanoService } from '../../../shared/eventos/evento-eliminar-bano.service';
 import { CompartirIdBanoService } from 'src/app/shared/eventos/compartir-id-bano.service';
-import { RespuestaBano } from '../../../core/modelo/RespuestaBano';
+import { ComandoRespuestaBanoLista } from '../../../core/modelo/ComandoRespuesta';
 
 @Component({
   selector: 'app-listar-banos',
@@ -35,13 +35,13 @@ export class ListarBanosComponent implements OnInit {
     });
 
     this.gestion.getBanosRest().subscribe({
-      next: (rta: Bano[]) => {
-        const lista: Bano[] = rta;
+      next: (rta: ComandoRespuestaBanoLista) => {
+        const lista: Bano[] = rta.respuesta;
         for (let index = 0; index < lista.length; index++) {
           const element: Bano = lista[index];
           let clase: string;
-          let habilitarEliminar:boolean;
-          let habilitarModificar:boolean;
+          let habilitarEliminar: boolean;
+          let habilitarModificar: boolean;
           if (element.estado === this.ESTADO_DISPONIBLE) {
             clase = 'badge badge-primary';
             habilitarEliminar = true;

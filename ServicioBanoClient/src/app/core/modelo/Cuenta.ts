@@ -1,5 +1,4 @@
 export class Cuenta {
-
     id: number;
     idBano: number;
     fechaIngreso: string;

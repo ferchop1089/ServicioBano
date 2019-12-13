@@ -1,5 +1,4 @@
 export class Bano {
-
     id: number;
     identificador: string;
     estado: string;

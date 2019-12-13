@@ -4,6 +4,7 @@ import { EventoEliminarBanoService } from '../../../shared/eventos/evento-elimin
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.service';
+import { ComandoRespuestaBano, ComandoRespuestaBanoLista } from '../../../core/modelo/ComandoRespuesta';
 
 @Injectable({
   providedIn: 'root'
@@ -21,19 +22,19 @@ export class GestionBanoService {
     })
   };
 
-  public getBanosRest(): Observable<Bano[]> {
-    return this.http.get<Bano[]>(this.baseUrl + '/consultar', this.httpOptions);
-  }
-
-  public getBanos(): Bano[] {
-    return this.listaBanos;
+  public getBanosRest(): Observable<ComandoRespuestaBanoLista> {
+    return this.http.get<ComandoRespuestaBanoLista>(this.baseUrl + '/consultar', this.httpOptions);
   }
 
   public getBano(id: number): Bano {
     return this.listaBanos[id];
   }
 
-  crearBano(bano: Bano) {
+  public getBanoRest(id: number): Observable<ComandoRespuestaBano> {
+    return this.http.get<ComandoRespuestaBano>(this.baseUrl + '/consultar/' + id, this.httpOptions);
+  }
+
+  public crearBano(bano: Bano) {
     bano.id = this.listaBanos.length + 1;
     this.listaBanos.push(bano);
     console.log('Se agregó nuevo elemento a la lista, id del elemento: ' + bano.id);
@@ -45,13 +46,6 @@ export class GestionBanoService {
     if (index > -1) {
       this.listaBanos[index] = bano;
     }
-  }
-
-  public eliminarBano(id: number) {
-    const index = this.listaBanos.findIndex(x => x.id === id);
-    const banos: Bano[] = this.listaBanos.splice(index, 1);
-    console.log('Index eliminado: ' + index);
-    this.eventEliminar.emitChange(banos[0]);
   }
 
   public eliminarBanoRest(id: number): Observable<Bano> {
