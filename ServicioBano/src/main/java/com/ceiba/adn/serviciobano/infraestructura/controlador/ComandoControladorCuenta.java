@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionValorObligatorio;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/servicio-bano/cuenta")
 public class ComandoControladorCuenta {

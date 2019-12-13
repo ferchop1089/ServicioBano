@@ -1,12 +1,14 @@
 package com.ceiba.adn.serviciobano.aplicacion.manejador;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.ceiba.adn.serviciobano.aplicacion.comando.ComandoBano;
+import com.ceiba.adn.serviciobano.aplicacion.comando.ComandoRespuesta;
 import com.ceiba.adn.serviciobano.comun.mapeador.Mapeador;
 import com.ceiba.adn.serviciobano.dominio.modelo.Bano;
 import com.ceiba.adn.serviciobano.dominio.servicio.bano.ServicioConsultasBano;
@@ -23,7 +25,14 @@ public class ManejadorConsultasBano {
 		this.mapper = mapper;
 	}
 
-	public List<ComandoBano> ejecutar() {
-		return this.consultasBano.listarBanos().stream().map(mapper::mapearDesde).collect(Collectors.toList());
+	public ComandoRespuesta<List<ComandoBano>> ejecutar() {
+		return new ComandoRespuesta<>(
+				this.consultasBano.listarBanos().stream().map(mapper::mapearDesde).collect(Collectors.toList()));
 	}
+
+	public ComandoRespuesta<ComandoBano> ejecutar(Long id) {
+		Optional<Bano> banoOpt = this.consultasBano.buscarBano(id);
+		return new ComandoRespuesta<ComandoBano>(mapper.mapearDesde(banoOpt.orElse(null)));
+	}
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionValorObligatorio;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/servicio-bano")
 public class ComandoControladorBano {
@@ -86,8 +88,33 @@ public class ComandoControladorBano {
 	}
 
 	@GetMapping(value = "/consultar", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public List<ComandoBano> consultarBanos() {
-		return consultasBano.ejecutar();
+	public ComandoRespuesta<List<ComandoBano>> consultarBanos() {
+		try {
+			return consultasBano.ejecutar();
+		} catch (ExcepcionValorInvalido | ExcepcionValorObligatorio | ExcepcionLongitudValor | ExcepcionSinDatos e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+		} catch (ExcepcionDuplicidad e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
+		} catch (ExcepcionRestriccion e) {
+			throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, e.getMessage(), e);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
+		}
+	}
+	
+	@GetMapping(value = "/consultar/{id}", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+	public ComandoRespuesta<ComandoBano> consultarBano(@PathVariable Long id) {
+		try {
+			return consultasBano.ejecutar(id);
+		} catch (ExcepcionValorInvalido | ExcepcionValorObligatorio | ExcepcionLongitudValor | ExcepcionSinDatos e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+		} catch (ExcepcionDuplicidad e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
+		} catch (ExcepcionRestriccion e) {
+			throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, e.getMessage(), e);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
+		}
 	}
 
 }
