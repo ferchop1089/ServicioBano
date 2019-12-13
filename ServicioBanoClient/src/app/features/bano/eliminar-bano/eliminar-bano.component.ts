@@ -14,7 +14,7 @@ export class EliminarBanoComponent implements OnInit {
 
   idBano: number;
 
-  @ViewChild('mmodalOcultar', { static: false })
+  @ViewChild('modalOcultar', { static: false })
   closeModal: ElementRef;
 
   constructor(private shared: CompartirIdBanoService, private eventEliminar: EventoEliminarBanoService, private eventAlert: EventoAlertService, private gestion: GestionBanoService) {
@@ -24,23 +24,22 @@ export class EliminarBanoComponent implements OnInit {
     this.shared.changeEmitted$.subscribe(id => {
       this.idBano = id;
     });
-    this.eventEliminar.changeEmitted$.subscribe(item => {
-      const tipoAlerta = 'alert-success';
-      const mensaje = 'El registro fue borrado <strong>exitosamente</strong>';
-      this.closeModal.nativeElement.click();
-      this.eventAlert.emitChange(new Alert(tipoAlerta, mensaje));
-    });
   }
 
   public eliminar() {
     this.gestion.eliminarBanoRest(this.idBano).subscribe({
-      next: (item: Bano) => {
+      next: () => { },
+      error: (err: any) => {
+        this.closeModal.nativeElement.click();
+        this.gestion.errorHandl(err);
+      },
+      complete: () => {
         const tipoAlerta = 'alert-success';
         const mensaje = 'El registro fue borrado <strong>exitosamente</strong>';
         this.closeModal.nativeElement.click();
+        this.eventEliminar.emitChange(this.idBano);
         this.eventAlert.emitChange(new Alert(tipoAlerta, mensaje));
-      },
-      error: (err: any) => this.gestion.errorHandl(err)
+      }
     });
   }
 

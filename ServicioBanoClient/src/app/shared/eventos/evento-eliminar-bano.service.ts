@@ -7,12 +7,12 @@ import { Bano } from '../../core/modelo/Bano';
 })
 export class EventoEliminarBanoService {
 
-  private emitChangeSource = new Subject<Bano>();
+  private emitChangeSource = new Subject<number>();
   changeEmitted$ = this.emitChangeSource.asObservable();
 
   constructor() { }
 
-  public emitChange(change: Bano) {
+  public emitChange(change: number) {
     this.emitChangeSource.next(change);
   }
 

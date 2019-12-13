@@ -3,9 +3,11 @@ import { Bano } from '../../../core/modelo/Bano';
 import { EstadoBano } from '../../../core/modelo/EstadoBano';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 import { GestionBanoService } from '../../servicios/bano/gestion-bano.service';
 import { ComandoRespuestaBano } from '../../../core/modelo/ComandoRespuesta';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { isBoolean } from 'util';
 
 @Component({
   selector: 'app-actualizar-bano',
@@ -14,38 +16,61 @@ import { ComandoRespuestaBano } from '../../../core/modelo/ComandoRespuesta';
 })
 export class ActualizarBanoComponent implements OnInit {
 
-  bano: Bano;
   checkDiponible: string;
   mostrarCheck: boolean;
-  id: Observable<string>;
+  form: FormGroup;
+  banoObs: Observable<Bano>;
+  idBano: number;
 
-  constructor(private route: ActivatedRoute, private gestion: GestionBanoService) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private gestion: GestionBanoService) {
 
   }
 
   ngOnInit() {
-    this.id = this.route.paramMap.pipe(map(paramMap => paramMap.get('id')));
-    this.id.subscribe({
-      next: (id) => {
-        this.gestion.getBanoRest(Number(id)).subscribe({
-          next: (comando: ComandoRespuestaBano) => {
-            console.log(comando);
-            console.log(comando.respuesta);
-          }
-        });
+    this.form = this.formBuilder.group({
+      identificador: ['', Validators.required],
+      estado: []
+    });
+
+    this.route.paramMap.pipe(map(paramMap => paramMap.get('id'))).subscribe({
+      next: (id: string) => {
+        this.banoObs = this.gestion.getBanoRest(Number(id))
+          .pipe(map(t => t.respuesta), catchError(err => this.gestion.errorHandl(err)))
+          .pipe(tap(ba => this.form.patchValue(ba)));
       }
     });
 
-    this.bano = new Bano(1, 'mesa', EstadoBano.FUERA_SERVICIO);
-    if (this.bano.estado === EstadoBano.DISPONIBLE) {
-      this.mostrarCheck = true;
-      this.checkDiponible = 'checked';
-    } else if (this.bano.estado === EstadoBano.OCUPADO) {
-      this.mostrarCheck = false;
-      this.checkDiponible = null;
-    } else if (this.bano.estado === EstadoBano.FUERA_SERVICIO) {
-      this.mostrarCheck = true;
-      this.checkDiponible = null;
+    this.banoObs.subscribe({
+      next: (bano) => {
+        this.idBano = bano.id;
+        if (bano.estado === EstadoBano.DISPONIBLE) {
+          this.mostrarCheck = true;
+          this.checkDiponible = 'checked';
+        } else if (bano.estado === EstadoBano.OCUPADO) {
+          this.mostrarCheck = false;
+          this.checkDiponible = null;
+        } else if (bano.estado === EstadoBano.FUERA_SERVICIO) {
+          this.mostrarCheck = true;
+          this.checkDiponible = null;
+        }
+      }
+    });
+  }
+
+  public submit() {
+    if (this.form.valid) {
+      const valor: any = this.form.get('estado').value;
+      const b: Bano = this.form.value;
+
+      if (isBoolean(valor)) {
+        if (valor) {
+          b.estado = EstadoBano.DISPONIBLE;
+        } else {
+          b.estado = EstadoBano.FUERA_SERVICIO;
+        }
+      }
+      const banoUpdate: Bano = new Bano(this.idBano, b.identificador, b.estado);
+      this.gestion.ActualizarBanoRest(banoUpdate);
     }
   }
 

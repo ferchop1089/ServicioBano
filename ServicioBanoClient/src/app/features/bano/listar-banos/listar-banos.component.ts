@@ -29,8 +29,8 @@ export class ListarBanosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.eventEliminar.changeEmitted$.subscribe(item => {
-      const index = this.listaBanos.findIndex(x => x.id === item.id);
+    this.eventEliminar.changeEmitted$.subscribe(idDeleted => {
+      const index = this.listaBanos.findIndex(x => x.id === idDeleted);
       this.listaBanos.splice(index, 1);
     });
 

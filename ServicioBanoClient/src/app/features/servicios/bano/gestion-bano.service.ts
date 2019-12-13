@@ -26,10 +26,6 @@ export class GestionBanoService {
     return this.http.get<ComandoRespuestaBanoLista>(this.baseUrl + '/consultar', this.httpOptions);
   }
 
-  public getBano(id: number): Bano {
-    return this.listaBanos[id];
-  }
-
   public getBanoRest(id: number): Observable<ComandoRespuestaBano> {
     return this.http.get<ComandoRespuestaBano>(this.baseUrl + '/consultar/' + id, this.httpOptions);
   }
@@ -46,6 +42,17 @@ export class GestionBanoService {
     if (index > -1) {
       this.listaBanos[index] = bano;
     }
+  }
+
+  public ActualizarBanoRest(bano: Bano) {
+    this.http.put(this.baseUrl + '/actualizar', bano, this.httpOptions).subscribe({
+      next: () => {
+        const tipoAlerta = 'alert-success';
+        const mensaje = 'El registro fue actualizado <strong>exitosamente</strong>';
+        this.eventAlert.emitChange(new Alert(tipoAlerta, mensaje));
+      },
+      error: (err: any) => this.errorHandl(err)
+    });
   }
 
   public eliminarBanoRest(id: number): Observable<Bano> {
