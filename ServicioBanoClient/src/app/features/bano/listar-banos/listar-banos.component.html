@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-6 text-right">
                     <div class="next">
-                        <button type="button" class="btn btn-default btn-lg" [disabled]="!bano.habilitar" (click)="publicarIdBano(bano.id)" title="Eliminar baño" data-toggle="modal" data-target="#eliminarBanoModal">
+                        <button type="button" class="btn btn-default btn-lg" [disabled]="!bano.habilitarEliminar" (click)="publicarIdBano(bano.id)" title="Eliminar baño" data-toggle="modal" data-target="#eliminarBanoModal">
                             <fa-icon [icon]="faTimes"></fa-icon>
                         </button>
                     </div>
@@ -25,7 +25,7 @@
                 <h5 class="card-title">{{ bano.identificador }}</h5>
                 <p class="card-text" [ngClass]="bano.clase">{{ bano.estado }}</p>
                 <!--<a [routerLink]="['../crearcuenta',bano.id]" class="btn btn-info btn-block">Modificar</a>-->
-                <button type="button" class="btn btn-outline-info btn-block" [disabled]="!bano.habilitar" (click)="redireccionar(bano.estado, bano.id)">Modificar</button>
+                <button type="button" class="btn btn-outline-info btn-block" [disabled]="!bano.habilitarModificar" (click)="redireccionar(bano.estado, bano.id)">Modificar</button>
             </div>
         </div>
     </div>

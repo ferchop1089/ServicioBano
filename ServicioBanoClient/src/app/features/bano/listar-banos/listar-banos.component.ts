@@ -34,28 +34,33 @@ export class ListarBanosComponent implements OnInit {
       this.listaBanos.splice(index, 1);
     });
 
-    //const lista: Bano[] = this.gestion.getBanos();
-    this.gestion.getBanosRest().subscribe((rta: Bano[]) => {
-      console.log(rta);
-      const lista: Bano[] = rta;
-      for (let index = 0; index < lista.length; index++) {
-        const element: Bano = lista[index];
-        let clase: string;
-        let habilitar: boolean;
-        if (element.estado === this.ESTADO_DISPONIBLE) {
-          clase = 'badge badge-primary';
-          habilitar = true;
-        } else if (element.estado === this.ESTADO_OCUPADO) {
-          clase = 'badge badge-danger';
-          habilitar = true;
-        } else if (element.estado === this.ESTADO_FUERA_SERVICIO) {
-          clase = 'badge badge-warning';
-          habilitar = false;
-        }
+    this.gestion.getBanosRest().subscribe({
+      next: (rta: Bano[]) => {
+        const lista: Bano[] = rta;
+        for (let index = 0; index < lista.length; index++) {
+          const element: Bano = lista[index];
+          let clase: string;
+          let habilitarEliminar:boolean;
+          let habilitarModificar:boolean;
+          if (element.estado === this.ESTADO_DISPONIBLE) {
+            clase = 'badge badge-primary';
+            habilitarEliminar = true;
+            habilitarModificar = true;
+          } else if (element.estado === this.ESTADO_OCUPADO) {
+            clase = 'badge badge-danger';
+            habilitarEliminar = false;
+            habilitarModificar = true;
+          } else if (element.estado === this.ESTADO_FUERA_SERVICIO) {
+            clase = 'badge badge-warning';
+            habilitarEliminar = true;
+            habilitarModificar = false;
+          }
 
-        const l: Bano2 = new Bano2(element.id, element.identificador, element.estado, clase, habilitar);
-        this.listaBanos[index] = l;
-      }
+          const l: Bano2 = new Bano2(element.id, element.identificador, element.estado, clase, habilitarEliminar, habilitarModificar);
+          this.listaBanos[index] = l;
+        }
+      },
+      error: (err: any) => this.gestion.errorHandl(err)
     });
     console.log('Finaliza el ngOnInit del listar baños. Elementos listados: ' + this.listaBanos.length);
   }
@@ -87,12 +92,15 @@ class Bano2 {
   estado: string;
   clase: string;
   habilitar: boolean;
+  habilitarEliminar: boolean;
+  habilitarModificar: boolean;
 
-  constructor(id: number, identificador: string, estado: string, clase: string, habilitar: boolean) {
+  constructor(id: number, identificador: string, estado: string, clase: string, habilitarEliminar: boolean, habilitarModificar: boolean) {
     this.id = id;
     this.identificador = identificador;
     this.estado = estado;
     this.clase = clase;
-    this.habilitar = habilitar;
+    this.habilitarEliminar = habilitarEliminar;
+    this.habilitarModificar = habilitarModificar;
   }
 }

@@ -4,6 +4,7 @@ import { GestionBanoService } from '../../servicios/bano/gestion-bano.service';
 import { EventoEliminarBanoService } from '../../../shared/eventos/evento-eliminar-bano.service';
 import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.service';
 //import * as $ from 'jquery';
+import { Bano } from '../../../core/modelo/Bano';
 
 @Component({
   selector: 'app-eliminar-bano',
@@ -27,14 +28,22 @@ export class EliminarBanoComponent implements OnInit {
     this.eventEliminar.changeEmitted$.subscribe(item => {
       const tipoAlerta = 'alert-success';
       const mensaje = 'El registro fue borrado <strong>exitosamente</strong>';
-      // $('#eliminarBanoModal').modal('hide');
       this.closeModal.nativeElement.click();
       this.eventAlert.emitChange(new Alert(tipoAlerta, mensaje));
     });
   }
 
   public eliminar() {
-    this.gestion.eliminarBano(this.idBano);
+    //this.gestion.eliminarBano(this.idBano);
+    this.gestion.eliminarBanoRest(this.idBano).subscribe({
+      next: (item: Bano) => {
+        const tipoAlerta = 'alert-success';
+        const mensaje = 'El registro fue borrado <strong>exitosamente</strong>';
+        this.closeModal.nativeElement.click();
+        this.eventAlert.emitChange(new Alert(tipoAlerta, mensaje));
+      },
+      error: (err: any) => this.gestion.errorHandl(err)
+    });
   }
 
 }

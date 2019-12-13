@@ -3,8 +3,7 @@ import { Bano } from 'src/app/core/modelo/Bano';
 import { EventoEliminarBanoService } from '../../../shared/eventos/evento-eliminar-bano.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { RespuestaBano } from 'src/app/core/modelo/RespuestaBano';
-import { retry, catchError } from 'rxjs/operators';
+import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +11,9 @@ import { retry, catchError } from 'rxjs/operators';
 export class GestionBanoService {
 
   private listaBanos: Bano[] = [];
-  private baseUrl = 'http://localhost:8080/servicio-bano';
+  private baseUrl = 'http://192.168.0.5:8080/servicio-bano';
 
-  constructor(private _eventEliminar: EventoEliminarBanoService, private http: HttpClient) { }
+  constructor(private eventEliminar: EventoEliminarBanoService, private eventAlert: EventoAlertService, private http: HttpClient) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -23,14 +22,7 @@ export class GestionBanoService {
   };
 
   public getBanosRest(): Observable<Bano[]> {
-    let rta:Observable<Bano[]> = this.http.get<Bano[]>(this.baseUrl + '/consultar');
-    console.log(rta);
-    return rta;
-    /*return this.http.get<RespuestaBano>(this.baseUrl + '/consultar')
-    .pipe(
-      retry(1),
-      catchError(this.errorHandl)
-    );*/
+    return this.http.get<Bano[]>(this.baseUrl + '/consultar', this.httpOptions);
   }
 
   public getBanos(): Bano[] {
@@ -59,21 +51,25 @@ export class GestionBanoService {
     const index = this.listaBanos.findIndex(x => x.id === id);
     const banos: Bano[] = this.listaBanos.splice(index, 1);
     console.log('Index eliminado: ' + index);
-    this._eventEliminar.emitChange(banos[0]);
-    //this.listaBanos = this.listaBanos.filter(obj => obj.id !== id);
+    this.eventEliminar.emitChange(banos[0]);
+  }
+
+  public eliminarBanoRest(id: number): Observable<Bano> {
+    return this.http.delete<Bano>(this.baseUrl + '/eliminar/' + id, this.httpOptions);
   }
 
   public errorHandl(error) {
     let errorMessage = '';
-    if(error.error instanceof ErrorEvent) {
+    if (error.error instanceof ErrorEvent) {
       // Get client-side error
       errorMessage = error.error.message;
     } else {
       // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      errorMessage = `Error Code: ${error.status}\n, Message: ${error.error.message}`;
     }
     console.log(errorMessage);
+    this.eventAlert.emitChange(new Alert('alert-danger', errorMessage));
     return throwError(errorMessage);
- }
+  }
 
 }
