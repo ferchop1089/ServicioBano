@@ -86,7 +86,7 @@ public class ComandoControladorBano {
 	}
 
 	@GetMapping(value = "/consultar", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public ComandoRespuesta<List<ComandoBano>> consultarBanos() {
+	public List<ComandoBano> consultarBanos() {
 		return consultasBano.ejecutar();
 	}
 
