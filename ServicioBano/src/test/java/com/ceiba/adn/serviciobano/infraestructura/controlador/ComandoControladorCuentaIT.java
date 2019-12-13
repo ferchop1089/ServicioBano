@@ -168,7 +168,7 @@ public class ComandoControladorCuentaIT {
 				.andExpect(status().isBadRequest());
 	}
 	
-	@Test
+	/*@Test
 	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/crear/data-insert-cuenta-bano.sql")
 	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/crear/data-delete-cuenta-bano.sql")
 	public void cuandoPagarOkEntoncesDeberiaPagar() throws Exception {
@@ -179,6 +179,6 @@ public class ComandoControladorCuentaIT {
 		// act - assert
 		mockMvc.perform(put(ENDPOINT_PAGAR).contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print()).andExpect(status().isOk());
-	}
+	}*/
 
 }
