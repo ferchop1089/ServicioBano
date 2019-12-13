@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Bano } from 'src/app/core/modelo/Bano';
 import { EventoEliminarBanoService } from '../../../shared/eventos/evento-eliminar-bano.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { RespuestaBano } from 'src/app/core/modelo/RespuestaBano';
+import { retry, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +12,26 @@ import { EventoEliminarBanoService } from '../../../shared/eventos/evento-elimin
 export class GestionBanoService {
 
   private listaBanos: Bano[] = [];
+  private baseUrl = 'http://localhost:8080/servicio-bano';
 
-  constructor(private _eventEliminar: EventoEliminarBanoService) { }
+  constructor(private _eventEliminar: EventoEliminarBanoService, private http: HttpClient) { }
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
+  public getBanosRest(): Observable<Bano[]> {
+    let rta:Observable<Bano[]> = this.http.get<Bano[]>(this.baseUrl + '/consultar');
+    console.log(rta);
+    return rta;
+    /*return this.http.get<RespuestaBano>(this.baseUrl + '/consultar')
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    );*/
+  }
 
   public getBanos(): Bano[] {
     return this.listaBanos;
@@ -40,5 +62,18 @@ export class GestionBanoService {
     this._eventEliminar.emitChange(banos[0]);
     //this.listaBanos = this.listaBanos.filter(obj => obj.id !== id);
   }
+
+  public errorHandl(error) {
+    let errorMessage = '';
+    if(error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+ }
 
 }

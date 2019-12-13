@@ -5,6 +5,7 @@ import { GestionBanoService } from '../../servicios/bano/gestion-bano.service';
 import { Bano } from '../../../core/modelo/Bano';
 import { EventoEliminarBanoService } from '../../../shared/eventos/evento-eliminar-bano.service';
 import { CompartirIdBanoService } from 'src/app/shared/eventos/compartir-id-bano.service';
+import { RespuestaBano } from '../../../core/modelo/RespuestaBano';
 
 @Component({
   selector: 'app-listar-banos',
@@ -33,25 +34,29 @@ export class ListarBanosComponent implements OnInit {
       this.listaBanos.splice(index, 1);
     });
 
-    const lista: Bano[] = this.gestion.getBanos();
-    for (let index = 0; index < lista.length; index++) {
-      const element: Bano = lista[index];
-      let clase: string;
-      let habilitar: boolean;
-      if (element.estado === this.ESTADO_DISPONIBLE) {
-        clase = 'badge badge-primary';
-        habilitar = true;
-      } else if (element.estado === this.ESTADO_OCUPADO) {
-        clase = 'badge badge-danger';
-        habilitar = true;
-      } else if (element.estado === this.ESTADO_FUERA_SERVICIO) {
-        clase = 'badge badge-warning';
-        habilitar = false;
-      }
+    //const lista: Bano[] = this.gestion.getBanos();
+    this.gestion.getBanosRest().subscribe((rta: Bano[]) => {
+      console.log(rta);
+      const lista: Bano[] = rta;
+      for (let index = 0; index < lista.length; index++) {
+        const element: Bano = lista[index];
+        let clase: string;
+        let habilitar: boolean;
+        if (element.estado === this.ESTADO_DISPONIBLE) {
+          clase = 'badge badge-primary';
+          habilitar = true;
+        } else if (element.estado === this.ESTADO_OCUPADO) {
+          clase = 'badge badge-danger';
+          habilitar = true;
+        } else if (element.estado === this.ESTADO_FUERA_SERVICIO) {
+          clase = 'badge badge-warning';
+          habilitar = false;
+        }
 
-      const l: Bano2 = new Bano2(element.id, element.identificador, element.estado, clase, habilitar);
-      this.listaBanos[index] = l;
-    }
+        const l: Bano2 = new Bano2(element.id, element.identificador, element.estado, clase, habilitar);
+        this.listaBanos[index] = l;
+      }
+    });
     console.log('Finaliza el ngOnInit del listar baños. Elementos listados: ' + this.listaBanos.length);
   }
 

@@ -1,4 +1,4 @@
-export class Bano {
+export class Cuenta {
 
     id: number;
     idBano: number;

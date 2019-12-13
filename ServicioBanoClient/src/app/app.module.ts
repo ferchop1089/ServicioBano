@@ -18,6 +18,7 @@ import { ActualizarCuentaComponent } from './features/cuenta/actualizar-cuenta/a
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GestionBanoService } from './features/servicios/bano/gestion-bano.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     AppRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [GestionBanoService],
   bootstrap: [AppComponent]
