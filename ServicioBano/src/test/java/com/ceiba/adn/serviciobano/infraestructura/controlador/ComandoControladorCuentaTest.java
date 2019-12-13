@@ -31,6 +31,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.ceiba.adn.serviciobano.aplicacion.comando.ComandoCuenta;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorActualizarCuenta;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorCobrarCuenta;
+import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorConsultasCuenta;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorCrearCuenta;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorPagarCuenta;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionRestriccion;
@@ -62,6 +63,9 @@ public class ComandoControladorCuentaTest {
 
 	@Autowired
 	private ManejadorPagarCuenta pagarCuenta;
+	
+	@Autowired
+	private ManejadorConsultasCuenta consultarCuenta;
 
 	private ComandoControladorCuenta controlador;
 
@@ -72,7 +76,7 @@ public class ComandoControladorCuentaTest {
 
 	@Before
 	public void setUp() {
-		controlador = new ComandoControladorCuenta(crearCuenta, actualizarCuenta, cobrarCuenta, pagarCuenta);
+		controlador = new ComandoControladorCuenta(crearCuenta, actualizarCuenta, cobrarCuenta, pagarCuenta, consultarCuenta);
 		mockMvc = MockMvcBuilders.standaloneSetup(controlador).build();
 	}
 
@@ -169,6 +173,12 @@ public class ComandoControladorCuentaTest {
 		@Scope("prototype")
 		public ManejadorPagarCuenta crearManejadorPagarCuenta() {
 			return mock(ManejadorPagarCuenta.class);
+		}
+		
+		@Bean
+		@Scope("prototype")
+		public ManejadorConsultasCuenta crearManejadorConsultasCuenta() {
+			return mock(ManejadorConsultasCuenta.class);
 		}
 
 		public static final String FORMATO_LOCAL_DATE_TIME = "yyyy-MM-dd HH:mm:ss";

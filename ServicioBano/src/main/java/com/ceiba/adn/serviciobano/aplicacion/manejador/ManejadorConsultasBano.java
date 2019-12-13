@@ -32,7 +32,7 @@ public class ManejadorConsultasBano {
 
 	public ComandoRespuesta<ComandoBano> ejecutar(Long id) {
 		Optional<Bano> banoOpt = this.consultasBano.buscarBano(id);
-		return new ComandoRespuesta<ComandoBano>(mapper.mapearDesde(banoOpt.orElse(null)));
+		return new ComandoRespuesta<>(mapper.mapearDesde(banoOpt.orElse(null)));
 	}
 
 }

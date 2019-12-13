@@ -18,6 +18,7 @@ import com.ceiba.adn.serviciobano.aplicacion.comando.ComandoCuenta;
 import com.ceiba.adn.serviciobano.aplicacion.comando.ComandoRespuesta;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorActualizarCuenta;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorCobrarCuenta;
+import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorConsultasCuenta;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorCrearCuenta;
 import com.ceiba.adn.serviciobano.aplicacion.manejador.ManejadorPagarCuenta;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionDuplicidad;
@@ -36,13 +37,15 @@ public class ComandoControladorCuenta {
 	private ManejadorActualizarCuenta actualizarCuenta;
 	private ManejadorCobrarCuenta cobrarCuenta;
 	private ManejadorPagarCuenta pagarCuenta;
+	private ManejadorConsultasCuenta consultarCuenta;
 
 	public ComandoControladorCuenta(ManejadorCrearCuenta crearCuenta, ManejadorActualizarCuenta actualizarCuenta,
-			ManejadorCobrarCuenta cobrarCuenta, ManejadorPagarCuenta pagarCuenta) {
+			ManejadorCobrarCuenta cobrarCuenta, ManejadorPagarCuenta pagarCuenta, ManejadorConsultasCuenta consultarCuenta) {
 		this.crearCuenta = crearCuenta;
 		this.actualizarCuenta = actualizarCuenta;
 		this.cobrarCuenta = cobrarCuenta;
 		this.pagarCuenta = pagarCuenta;
+		this.consultarCuenta = consultarCuenta;
 	}
 
 	@PostMapping(value = "/crear", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
@@ -54,6 +57,7 @@ public class ComandoControladorCuenta {
 		} catch (ExcepcionDuplicidad e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
 		}
 	}
@@ -73,6 +77,17 @@ public class ComandoControladorCuenta {
 	public ComandoRespuesta<BigDecimal> cobrar(@PathVariable Long id) {
 		try {
 			return cobrarCuenta.ejecutar(id);
+		} catch (ExcepcionValorInvalido | ExcepcionValorObligatorio | ExcepcionLongitudValor | ExcepcionSinDatos e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
+		}
+	}
+	
+	@GetMapping(value = "/consultar/{id}", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+	public ComandoRespuesta<ComandoCuenta> consultar(@PathVariable Long id) {
+		try {
+			return consultarCuenta.ejecutar(id);
 		} catch (ExcepcionValorInvalido | ExcepcionValorObligatorio | ExcepcionLongitudValor | ExcepcionSinDatos e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
 		} catch (Exception e) {

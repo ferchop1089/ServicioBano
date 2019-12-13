@@ -20,7 +20,7 @@ public class CuentaEntidad implements Serializable {
 	private static final long serialVersionUID = 6045856970103249278L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 
 	@Column(name = "sobres")

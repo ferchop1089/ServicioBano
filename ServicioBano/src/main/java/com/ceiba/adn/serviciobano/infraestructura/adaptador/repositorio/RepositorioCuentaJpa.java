@@ -15,5 +15,8 @@ public interface RepositorioCuentaJpa extends JpaRepository<CuentaEntidad, Long>
 
 	@Query("SELECT b.estado FROM CuentaEntidad b WHERE b.id = ?1")
 	public String findEstadoCuentaEntidadById(@Param("id") Long id);
+	
+	@Query("SELECT max(b.id) FROM CuentaEntidad b")
+	public Long findMaxId();
 
 }
