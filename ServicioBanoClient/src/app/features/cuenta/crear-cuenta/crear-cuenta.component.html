@@ -1,9 +1,12 @@
-<form>
+<form [formGroup]="form" (ngSubmit)="submit()">
     <div class="form-group animated fadeIn fast">
-        <label for="nombreBano">No. de sobres:</label>
-        <input type="number" min="0" aria-readonly="true" required class="form-control" id="nombreBano" aria-describedby="nombreBanoHelp" value="1">
-        <small id="nombreBanoHelp" class="form-text text-muted">Ingresa el número de sobres.</small>
+        <label for="sobres">No. de sobres:</label>
+        <input type="number" min="0" aria-readonly="true" formControlName="sobres" required class="form-control" id="sobres" aria-describedby="sobresHelp" value="1">
+        <small id="sobresHelp" class="form-text text-muted">Ingresa el número de sobres.</small>
+        <div *ngIf="form.controls.sobres.errors && form.controls.sobres.touched" class="error">
+            *Campo requerido
+        </div>
     </div>
     <a [routerLink]="['../../listarbano']" class="btn btn-outline-secondary mr-2">Atrás</a>
-    <button type="button" class="btn btn-outline-primary">Ocupar</button>
+    <button type="submit" class="btn btn-outline-primary">Ocupar</button>
 </form>

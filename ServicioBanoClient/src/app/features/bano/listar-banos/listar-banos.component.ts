@@ -6,6 +6,7 @@ import { Bano } from '../../../core/modelo/Bano';
 import { EventoEliminarBanoService } from '../../../shared/eventos/evento-eliminar-bano.service';
 import { CompartirIdBanoService } from 'src/app/shared/eventos/compartir-id-bano.service';
 import { ComandoRespuestaBanoLista } from '../../../core/modelo/ComandoRespuesta';
+import { EstadoBano } from '../../../core/modelo/EstadoBano';
 
 @Component({
   selector: 'app-listar-banos',
@@ -15,9 +16,6 @@ import { ComandoRespuestaBanoLista } from '../../../core/modelo/ComandoRespuesta
 export class ListarBanosComponent implements OnInit {
 
   listaBanos: Bano2[] = [];
-  ESTADO_DISPONIBLE = 'DISPONIBLE';
-  ESTADO_OCUPADO = 'OCUPADO';
-  ESTADO_FUERA_SERVICIO = 'FUERA DE SERVICIO';
   faCog = faCog;
   faTimes = faTimes;
 
@@ -42,15 +40,15 @@ export class ListarBanosComponent implements OnInit {
           let clase: string;
           let habilitarEliminar: boolean;
           let habilitarModificar: boolean;
-          if (element.estado === this.ESTADO_DISPONIBLE) {
+          if (element.estado === EstadoBano.DISPONIBLE) {
             clase = 'badge badge-primary';
             habilitarEliminar = true;
             habilitarModificar = true;
-          } else if (element.estado === this.ESTADO_OCUPADO) {
+          } else if (element.estado === EstadoBano.OCUPADO) {
             clase = 'badge badge-danger';
             habilitarEliminar = false;
             habilitarModificar = true;
-          } else if (element.estado === this.ESTADO_FUERA_SERVICIO) {
+          } else if (element.estado === EstadoBano.FUERA_SERVICIO) {
             clase = 'badge badge-warning';
             habilitarEliminar = true;
             habilitarModificar = false;
@@ -65,12 +63,12 @@ export class ListarBanosComponent implements OnInit {
     console.log('Finaliza el ngOnInit del listar baños. Elementos listados: ' + this.listaBanos.length);
   }
 
-  public redireccionar(estado: string, id: number) {
-    if (estado === this.ESTADO_DISPONIBLE) {
-      this.router.navigate(['../crearcuenta', id], { relativeTo: this.activateRoute });
-    } else if (estado === this.ESTADO_OCUPADO) {
-      this.router.navigate(['../actualizarcuenta', id], { relativeTo: this.activateRoute });
-    } else if (estado === this.ESTADO_FUERA_SERVICIO) {
+  public redireccionar(estado: string, idBano: number) {
+    if (estado === EstadoBano.DISPONIBLE) {
+      this.router.navigate(['../crearcuenta', idBano], { relativeTo: this.activateRoute });
+    } else if (estado === EstadoBano.OCUPADO) {
+      this.router.navigate(['../actualizarcuenta', idBano], { relativeTo: this.activateRoute });
+    } else if (estado === EstadoBano.FUERA_SERVICIO) {
       this.router.navigate(['listarbano'], { relativeTo: this.activateRoute });
     }
   }

@@ -18,7 +18,7 @@ const routes: Routes = [
       { path: 'listarbano', component: ListarBanosComponent },
       { path: 'crearbano', component: CrearBanoComponent },
       { path: 'actualizarbano/:id', component: ActualizarBanoComponent },
-      { path: 'crearcuenta/:id', component: CrearCuentaComponent },
+      { path: 'crearcuenta/:idBano', component: CrearCuentaComponent },
       { path: 'actualizarcuenta/:id', component: ActualizarCuentaComponent },
       { path: '', redirectTo: 'listarbano', pathMatch: 'full' }
     ]

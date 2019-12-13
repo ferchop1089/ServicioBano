@@ -34,6 +34,7 @@ export class CrearBanoComponent implements OnInit {
           const tipoAlerta = 'alert-success';
           const mensaje = 'El registro fue creado <strong>exitosamente</strong>';
           this.eventAlert.emitChange(new Alert(tipoAlerta, mensaje));
+          this.checkoutForm.reset();
         }
       });
     }

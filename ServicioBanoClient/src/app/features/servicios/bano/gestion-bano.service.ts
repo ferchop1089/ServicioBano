@@ -6,22 +6,18 @@ import { Observable, throwError } from 'rxjs';
 import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.service';
 import { ComandoRespuestaBano, ComandoRespuestaBanoLista } from '../../../core/modelo/ComandoRespuesta';
 import { map, catchError } from 'rxjs/operators';
+import { ServicioBase } from '../../../core/servicios/servicio-base';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GestionBanoService {
+export class GestionBanoService extends ServicioBase {
 
-  private listaBanos: Bano[] = [];
   private baseUrl = 'http://192.168.0.5:8080/servicio-bano';
 
-  constructor(private eventEliminar: EventoEliminarBanoService, private eventAlert: EventoAlertService, private http: HttpClient) { }
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
+  constructor(private http: HttpClient, eventAlert: EventoAlertService) {
+    super(eventAlert);
+  }
 
   public getBanosRest(): Observable<ComandoRespuestaBanoLista> {
     return this.http.get<ComandoRespuestaBanoLista>(this.baseUrl + '/consultar', this.httpOptions);
@@ -43,7 +39,7 @@ export class GestionBanoService {
       next: () => {
         const tipoAlerta = 'alert-success';
         const mensaje = 'El registro fue actualizado <strong>exitosamente</strong>';
-        this.eventAlert.emitChange(new Alert(tipoAlerta, mensaje));
+        this.eventAlert1.emitChange(new Alert(tipoAlerta, mensaje));
       },
       error: (err: any) => this.errorHandl(err)
     });
@@ -51,20 +47,6 @@ export class GestionBanoService {
 
   public eliminarBanoRest(id: number): Observable<Bano> {
     return this.http.delete<Bano>(this.baseUrl + '/eliminar/' + id, this.httpOptions);
-  }
-
-  public errorHandl(error: { error: { message: string; }; status: any; }) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\n, Message: ${error.error.message}`;
-    }
-    console.log(errorMessage);
-    this.eventAlert.emitChange(new Alert('alert-danger', error.error.message));
-    return throwError(errorMessage);
   }
 
 }
