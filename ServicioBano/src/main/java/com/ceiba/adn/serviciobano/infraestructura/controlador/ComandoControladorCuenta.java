@@ -84,10 +84,10 @@ public class ComandoControladorCuenta {
 		}
 	}
 	
-	@GetMapping(value = "/consultar/{id}", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public ComandoRespuesta<ComandoCuenta> consultar(@PathVariable Long id) {
+	@GetMapping(value = "/consultar/{idBano}", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+	public ComandoRespuesta<ComandoCuenta> consultarPorIdBano(@PathVariable Long idBano) {
 		try {
-			return consultarCuenta.ejecutar(id);
+			return consultarCuenta.ejecutarPorIdBano(idBano);
 		} catch (ExcepcionValorInvalido | ExcepcionValorObligatorio | ExcepcionLongitudValor | ExcepcionSinDatos e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
 		} catch (Exception e) {
