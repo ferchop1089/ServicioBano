@@ -12,7 +12,7 @@ import { ServicioBase } from '../../../core/servicios/servicio-base';
 })
 export class GestionCuentaService extends ServicioBase {
 
-  private baseUrl = 'http://192.168.0.5:8080/servicio-bano/cuenta';
+  private baseUrl = 'http://localhost:8080/servicio-bano/cuenta';
 
   constructor(eventAlert: EventoAlertService, private http: HttpClient) {
     super(eventAlert);
