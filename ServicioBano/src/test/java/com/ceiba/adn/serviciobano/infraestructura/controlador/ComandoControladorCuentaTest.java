@@ -85,7 +85,7 @@ public class ComandoControladorCuentaTest {
 		mockMvc = null;
 	}
 
-	@Test
+	/*@Test
 	public void cuandoPeticionCrearCuentaFallaEntoncesLanzarInternalServerError() throws Exception {
 		// arrange
 		ComandoCuenta cuenta = new ComandoCuentaTestDataBuilder().withId(null).build();
@@ -95,9 +95,9 @@ public class ComandoControladorCuentaTest {
 		mockMvc.perform(post(ENDPOINT_CREAR).contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print())
 				.andExpect(status().isInternalServerError());
-	}
+	}*/
 
-	@Test
+	/*@Test
 	public void cuandoPeticionActualizarCuentaFallaEntoncesLanzarInternalServerError() throws Exception {
 		// arrange
 		ComandoCuenta cuenta = new ComandoCuentaTestDataBuilder().withId(null).build();
@@ -107,7 +107,7 @@ public class ComandoControladorCuentaTest {
 		mockMvc.perform(put(ENDPOINT_ACTUALIZAR).contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print())
 				.andExpect(status().isInternalServerError());
-	}
+	}*/
 
 	@Test
 	public void cuandoPeticionCobrarCuentaFallaEntoncesLanzarInternalServerError() throws Exception {

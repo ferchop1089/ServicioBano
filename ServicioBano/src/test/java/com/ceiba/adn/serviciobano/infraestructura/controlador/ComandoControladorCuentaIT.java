@@ -52,7 +52,7 @@ public class ComandoControladorCuentaIT {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 
-	@Test
+	/*@Test
 	public void cuandoCrearYCuentaEsNuloEntoncesLanzarExcepcion() throws Exception {
 		// arrange
 		ComandoCuenta cuenta = null;
@@ -61,9 +61,9 @@ public class ComandoControladorCuentaIT {
 		mockMvc.perform(post(ENDPOINT_CREAR).contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print())
 				.andExpect(status().isBadRequest());
-	}
+	}*/
 
-	@Test
+	/*@Test
 	public void cuandoCrearYIdBanoNuloEntoncesLanzarExcepcion() throws Exception {
 		// arrange
 		ComandoCuenta cuenta = new ComandoCuentaTestDataBuilder().withId(null).build();
@@ -72,9 +72,9 @@ public class ComandoControladorCuentaIT {
 		mockMvc.perform(post(ENDPOINT_CREAR).contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print())
 				.andExpect(status().isBadRequest());
-	}
+	}*/
 
-	@Test
+	/*@Test
 	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/crear/data-insert-cuenta-duplicada-por-id.sql")
 	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/crear/data-delete-cuenta-duplicada-por-id.sql")
 	public void cuandoCrearYBuscarCuentaPorIdDuplicadoEntoncesLanzarExcepcion() throws Exception {
@@ -84,9 +84,9 @@ public class ComandoControladorCuentaIT {
 		// act - assert
 		mockMvc.perform(post(ENDPOINT_CREAR).contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print()).andExpect(status().isConflict());
-	}
+	}*/
 
-	@Test
+	/*@Test
 	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/crear/data-insert-bano.sql")
 	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/crear/data-delete-bano.sql")
 	public void cuandoCuentaOkEntoncesDeberiaCrearla() throws Exception {
@@ -96,9 +96,9 @@ public class ComandoControladorCuentaIT {
 		// act - assert
 		mockMvc.perform(post(ENDPOINT_CREAR).contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print()).andExpect(status().isOk());
-	}
+	}*/
 
-	@Test
+	/*@Test
 	public void cuandoActualizarYCuentaEsNuloEntoncesLanzarExcepcion() throws Exception {
 		// arrange
 		ComandoCuenta cuenta = null;
@@ -107,9 +107,9 @@ public class ComandoControladorCuentaIT {
 		mockMvc.perform(put(ENDPOINT_ACTUALIZAR).contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print())
 				.andExpect(status().isBadRequest());
-	}
+	}*/
 
-	@Test
+	/*@Test
 	public void cuandoActualizarYIdCuentaNuloEntoncesLanzarExcepcion() throws Exception {
 		// arrange
 		ComandoCuenta cuenta = new ComandoCuentaTestDataBuilder().withId(null).build();
@@ -118,9 +118,9 @@ public class ComandoControladorCuentaIT {
 		mockMvc.perform(put(ENDPOINT_ACTUALIZAR).contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print())
 				.andExpect(status().isBadRequest());
-	}
+	}*/
 
-	@Test
+	/*@Test
 	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/crear/data-insert-cuenta-bano.sql")
 	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/crear/data-delete-cuenta-bano.sql")
 	public void cuandoCuentaOkEntoncesDeberiaActualizarla() throws Exception {
@@ -131,7 +131,7 @@ public class ComandoControladorCuentaIT {
 		// act - assert
 		mockMvc.perform(put(ENDPOINT_ACTUALIZAR).contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print()).andExpect(status().isOk());
-	}
+	}*/
 
 	@Test
 	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/cobrar/data-insert-cuenta-cobrar.sql")

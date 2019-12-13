@@ -48,7 +48,7 @@ public class ComandoControladorCuenta {
 		this.consultarCuenta = consultarCuenta;
 	}
 
-	@PostMapping(value = "/crear", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+	@PostMapping(produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 	public ComandoRespuesta<Long> crear(@RequestBody ComandoCuenta cuenta) {
 		try {
 			return crearCuenta.ejecutar(cuenta);
@@ -61,7 +61,7 @@ public class ComandoControladorCuenta {
 		}
 	}
 
-	@PutMapping(value = "/actualizar", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+	@PutMapping(produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 	public void actualizar(@RequestBody ComandoCuenta cuenta) {
 		try {
 			actualizarCuenta.ejecutar(cuenta);
@@ -83,7 +83,7 @@ public class ComandoControladorCuenta {
 		}
 	}
 	
-	@GetMapping(value = "/consultar/{idBano}", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/{idBano}", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 	public ComandoRespuesta<ComandoCuenta> consultarPorIdBano(@PathVariable Long idBano) {
 		try {
 			return consultarCuenta.ejecutarPorIdBano(idBano);
