@@ -1,6 +1,7 @@
 package com.ceiba.adn.serviciobano.infraestructura.controlador;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -81,7 +82,7 @@ public class ComandoControladorCuentaIT {
 				.withEstado(EstadoCuenta.CERRADA.getEstado()).build();
 
 		// act - assert
-		mockMvc.perform(put(URL_BASE).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(patch(URL_BASE).contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print()).andExpect(status().isOk());
 	}
 
@@ -93,7 +94,7 @@ public class ComandoControladorCuentaIT {
 		Long idBano = 67L;
 
 		// arrange - act - assert
-		mockMvc.perform(get(URL_BASE + "/{idBano}", idBano).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get(URL_BASE + "/bano/{id}", idBano).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
 	}
 
@@ -105,8 +106,9 @@ public class ComandoControladorCuentaIT {
 		Long id = 77L;
 
 		// act - assert
-		mockMvc.perform(get(URL_BASE + "/cobrar/{id}", id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(
+				get(URL_BASE + "/{id}", id).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
@@ -114,12 +116,11 @@ public class ComandoControladorCuentaIT {
 	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/cuenta/data-delete-pagar-ok.sql")
 	public void cuandoPagarOkEntoncesDeberiaPagar() throws Exception {
 		// arrange
-		ComandoCuenta cuenta = new ComandoCuentaTestDataBuilder().withId(76L).withIdBano(65L)
-				.withEstado(EstadoCuenta.CERRADA.getEstado()).build();
+		Long id = 76L;
 
 		// act - assert
-		mockMvc.perform(put(URL_BASE + "/pagar").contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print()).andExpect(status().isOk());
+		mockMvc.perform(put(URL_BASE + "/{id}", id).contentType(MediaType.APPLICATION_JSON)).andDo(print())
+				.andExpect(status().isOk());
 	}
 
 	@Test

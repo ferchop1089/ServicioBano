@@ -3,6 +3,7 @@ package com.ceiba.adn.serviciobano.infraestructura.controlador;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -45,24 +46,24 @@ public class ComandoControladorCuenta {
 		return crearCuenta.ejecutar(cuenta);
 	}
 
-	@PutMapping(produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+	@PatchMapping(produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 	public void actualizar(@RequestBody ComandoCuenta cuenta) {
 		actualizarCuenta.ejecutar(cuenta);
 	}
 
-	@GetMapping(value = "/{idBano}", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public ComandoRespuesta<ComandoCuenta> consultarPorIdBano(@PathVariable Long idBano) {
-		return consultarCuenta.ejecutar(idBano);
+	@GetMapping(value = "/bano/{id}", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+	public ComandoRespuesta<ComandoCuenta> consultarPorIdBano(@PathVariable Long id) {
+		return consultarCuenta.ejecutar(id);
 	}
 
-	@GetMapping(value = "/cobrar/{id}", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/{id}", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 	public ComandoRespuesta<ComandoCobrar> cobrar(@PathVariable Long id) {
 		return cobrarCuenta.ejecutar(id);
 	}
 
-	@PutMapping(value = "/pagar", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public void pagar(@RequestBody ComandoCuenta cuenta) {
-		pagarCuenta.ejecutar(cuenta);
+	@PutMapping(value = "/{id}", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+	public void pagar(@PathVariable Long id) {
+		pagarCuenta.ejecutar(id);
 	}
 
 }

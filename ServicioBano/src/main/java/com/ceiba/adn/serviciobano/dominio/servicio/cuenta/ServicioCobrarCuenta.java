@@ -62,6 +62,7 @@ public class ServicioCobrarCuenta {
 		BigDecimal subtotalMinutosAdicionales = new BigDecimal(0);
 		BigDecimal subtotalSobresAdicionales = new BigDecimal(0);
 		Long minutosTranscurridos = Duration.between(fechaIngreso, ahora).toMinutes();
+		minutosTranscurridos = minutosTranscurridos == 0L ? 1L : minutosTranscurridos; // Si la diferencia es de cero se toma como el primer minuto
 
 		if (minutosTranscurridos > minutosPermitidos) {
 			minutosAdicionales = minutosTranscurridos - minutosPermitidos;
