@@ -52,7 +52,7 @@ public class ComandoControladorCuenta {
 
 	@GetMapping(value = "/{idBano}", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 	public ComandoRespuesta<ComandoCuenta> consultarPorIdBano(@PathVariable Long idBano) {
-		return consultarCuenta.ejecutarPorIdBano(idBano);
+		return consultarCuenta.ejecutar(idBano);
 	}
 
 	@GetMapping(value = "/cobrar/{id}", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)

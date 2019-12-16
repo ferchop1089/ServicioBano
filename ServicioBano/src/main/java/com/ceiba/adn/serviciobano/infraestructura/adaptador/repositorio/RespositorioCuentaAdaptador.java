@@ -49,11 +49,6 @@ public class RespositorioCuentaAdaptador implements RepositorioCuenta {
 	}
 
 	@Override
-	public void eliminar(Long id) {
-		jpa.deleteById(id);
-	}
-
-	@Override
 	public Optional<Cuenta> buscarPorId(Long id) {
 		return jpa.findById(id).map(mapper::mapearA);
 	}
@@ -61,11 +56,6 @@ public class RespositorioCuentaAdaptador implements RepositorioCuenta {
 	@Override
 	public Optional<Cuenta> buscarPorIdBano(Long idBano) {
 		return jpa.findCuentaEntidadByIdBano(idBano).map(mapper::mapearA);
-	}
-
-	@Override
-	public String estadoCuenta(Long id) {
-		return jpa.findEstadoCuentaEntidadById(id);
 	}
 
 	@Override

@@ -1,1 +1,0 @@
-DELETE FROM Bano WHERE id in (60, 61, 62 , 63, 64);

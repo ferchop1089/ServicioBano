@@ -1,0 +1,1 @@
+INSERT INTO Bano(id, identificador, estado) VALUES (69,'Bano 69','DISPONIBLE');

@@ -46,16 +46,8 @@ public class BanoEntidad implements Serializable {
 		return identificador;
 	}
 
-	public void setIdentificador(String identificador0) {
-		this.identificador = identificador0;
-	}
-
 	public String getEstado() {
 		return estado;
-	}
-
-	public void setEstado(String estado0) {
-		this.estado = estado0;
 	}
 
 }

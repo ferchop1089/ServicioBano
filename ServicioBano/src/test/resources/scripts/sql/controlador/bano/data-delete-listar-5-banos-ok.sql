@@ -1,0 +1,1 @@
+DELETE FROM Bano WHERE id in (97, 96, 95 , 94, 93);

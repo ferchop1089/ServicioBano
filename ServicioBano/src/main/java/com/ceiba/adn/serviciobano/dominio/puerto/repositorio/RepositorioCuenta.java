@@ -10,13 +10,9 @@ public interface RepositorioCuenta {
 
 	public void actualizar(Cuenta cuenta);
 
-	public void eliminar(Long id);
-
 	public Optional<Cuenta> buscarPorId(Long id);
 
 	public Optional<Cuenta> buscarPorIdBano(Long idBano);
-
-	public String estadoCuenta(Long id);
 
 	public boolean existePorId(Long id);
 

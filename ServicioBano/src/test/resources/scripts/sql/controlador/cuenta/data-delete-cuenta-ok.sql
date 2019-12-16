@@ -1,0 +1,2 @@
+DELETE FROM Cuenta WHERE id = 80;
+DELETE FROM Bano WHERE id = 70;

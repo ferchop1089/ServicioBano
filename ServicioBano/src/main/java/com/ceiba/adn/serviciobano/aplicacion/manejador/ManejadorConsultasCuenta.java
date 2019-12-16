@@ -22,12 +22,8 @@ public class ManejadorConsultasCuenta {
 		this.consultasCuenta = consultasCuenta;
 		this.mapper = mapper;
 	}
-
-	public ComandoRespuesta<ComandoCuenta> ejecutarPorIdCuenta(Long id) {
-		return ejecutar(this.consultasCuenta.buscarCuentaPorId(id));
-	}
 	
-	public ComandoRespuesta<ComandoCuenta> ejecutarPorIdBano(Long idBano) {
+	public ComandoRespuesta<ComandoCuenta> ejecutar(Long idBano) {
 		return ejecutar(this.consultasCuenta.buscarCuentaPorIdBano(idBano));
 	}
 	
