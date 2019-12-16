@@ -1,9 +1,9 @@
-<form *ngIf="banoObs | async; else loading" [formGroup]="form" (ngSubmit)="submit()">
+<form *ngIf="banoObs | async; else loading" [formGroup]="formulario" (ngSubmit)="submit()">
     <div class="form-group animated fadeIn fast">
         <label for="identificador">Nombre</label>
         <input type="text" class="form-control" id="identificador" formControlName="identificador" aria-describedby="identificadorHelp">
         <small id="identificadorHelp" class="form-text text-muted">El nombre del baño no debe repetirse.</small>
-        <div *ngIf="formulario.controls.identificador.errors && form.controls.identificador.touched" class="error">
+        <div *ngIf="formulario.controls.identificador.errors && formulario.controls.identificador.touched" class="error">
             *Campo requerido
         </div>
 

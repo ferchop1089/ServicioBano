@@ -26,7 +26,7 @@ export class ActualizarCuentaComponent implements OnInit {
     this.activatedRoute.paramMap.pipe(map(paramMap => paramMap.get('idBano'))).subscribe({
       next: (idBano: string) => {
         this.idBano = Number(idBano);
-        this.gestion.getCuentaPorIdBanoRest(this.idBano).subscribe({
+        this.gestion.getCuentaPorIdBano(this.idBano).subscribe({
           next: (comando: ComandoRespuestaCuenta) => {
             this.cuenta = comando.respuesta;
             this.form = this.formBuilder.group({
@@ -46,7 +46,7 @@ export class ActualizarCuentaComponent implements OnInit {
     if (this.form.valid) {
       const b: Cuenta = this.form.value;
       this.cuenta.sobres = b.sobres;
-      this.gestion.actualizarCuentaRest(this.cuenta).subscribe({
+      this.gestion.actualizarCuenta(this.cuenta).subscribe({
         next: () => {
           const tipoAlerta = 'alert-success';
           const mensaje = 'El registro fue actualizado <strong>exitosamente</strong>';

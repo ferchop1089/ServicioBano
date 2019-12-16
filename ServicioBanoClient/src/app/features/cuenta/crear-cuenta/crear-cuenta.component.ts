@@ -39,7 +39,7 @@ export class CrearCuentaComponent implements OnInit {
       b.id = null;
       b.idBano = this.idBano;
       b.estado = EstadoCuenta.ABIERTA;
-      this.gestion.crearCuentaRest(b).subscribe({
+      this.gestion.crearCuenta(b).subscribe({
         next: () => {
           const tipoAlerta = 'alert-success';
           const mensaje = 'El registro fue actualizado <strong>exitosamente</strong>';
