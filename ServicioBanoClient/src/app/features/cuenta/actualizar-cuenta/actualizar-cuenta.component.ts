@@ -7,6 +7,7 @@ import { Cuenta } from '../../../core/modelo/Cuenta';
 import { ComandoRespuestaCuenta } from '../../../core/modelo/ComandoRespuesta';
 import { EstadoCuenta } from '../../../core/modelo/EstadoCuenta';
 import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.service';
+import { EventoCobrarCuentaService } from '../../../shared/eventos/evento-cobrar-cuenta.service';
 
 @Component({
   selector: 'app-actualizar-cuenta',
@@ -16,17 +17,17 @@ import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.
 export class ActualizarCuentaComponent implements OnInit {
 
   private idBano: number;
-  private cuenta:Cuenta;
+  cuenta: Cuenta;
   form: FormGroup;
 
-  constructor(private gestion: GestionCuentaService, private activatedRoute: ActivatedRoute, 
-    private formBuilder: FormBuilder, private eventAlert: EventoAlertService) { }
+  constructor(private gestion: GestionCuentaService, private activatedRoute: ActivatedRoute,
+              private formBuilder: FormBuilder, private eventAlert: EventoAlertService, private eventCobrar: EventoCobrarCuentaService) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.pipe(map(paramMap => paramMap.get('idBano'))).subscribe({
       next: (idBano: string) => {
         this.idBano = Number(idBano);
-        this.gestion.getCuentaPorIdBano(this.idBano).subscribe({
+        this.gestion.buscarCuentaPorIdBano(this.idBano).subscribe({
           next: (comando: ComandoRespuestaCuenta) => {
             this.cuenta = comando.respuesta;
             this.form = this.formBuilder.group({
@@ -36,7 +37,7 @@ export class ActualizarCuentaComponent implements OnInit {
         });
       }
     });
-    // Si lo retiro genera error
+    // Si se retira genera error
     this.form = this.formBuilder.group({
       sobres: ['', Validators.required]
     });
@@ -44,8 +45,8 @@ export class ActualizarCuentaComponent implements OnInit {
 
   public submit() {
     if (this.form.valid) {
-      const b: Cuenta = this.form.value;
-      this.cuenta.sobres = b.sobres;
+      const bano: Cuenta = this.form.value;
+      this.cuenta.sobres = bano.sobres;
       this.gestion.actualizarCuenta(this.cuenta).subscribe({
         next: () => {
           const tipoAlerta = 'alert-success';
@@ -54,6 +55,10 @@ export class ActualizarCuentaComponent implements OnInit {
         }
       });
     }
+  }
+
+  public publicarIdCuenta(id: number) {
+    this.eventCobrar.emitChange(id);
   }
 
 }

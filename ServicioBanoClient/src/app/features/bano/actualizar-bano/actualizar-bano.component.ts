@@ -34,7 +34,7 @@ export class ActualizarBanoComponent implements OnInit {
 
     this.route.paramMap.pipe(map(paramMap => paramMap.get('id'))).subscribe({
       next: (id: string) => {
-        this.banoObs = this.gestion.consultarBano(Number(id))
+        this.banoObs = this.gestion.buscarBano(Number(id))
           .pipe(map(t => t.respuesta), catchError(err => this.gestion.errorHandl(err)))
           .pipe(tap(ba => this.formulario.patchValue(ba)));
       }

@@ -9,5 +9,5 @@
     </div>
     <a [routerLink]="['../../listarbano']" class="btn btn-outline-secondary mr-2">Atrás</a>
     <button type="submit" class="btn btn-outline-primary mr-2">Actualizar</button>
-    <button type="button" class="btn btn-outline-primary">cobrar</button>
+    <button type="button" class="btn btn-outline-primary" (click)="publicarIdCuenta(cuenta.id)" data-toggle="modal" data-target="#cobrarCuentaModal">cobrar</button>
 </form>

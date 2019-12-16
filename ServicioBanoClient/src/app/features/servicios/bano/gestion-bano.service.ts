@@ -23,7 +23,7 @@ export class GestionBanoService extends ServicioBase {
     return this.http.get<ComandoRespuestaBanoLista>(this.baseUrl, this.httpOptions);
   }
 
-  public consultarBano(id: number): Observable<ComandoRespuestaBano> {
+  public buscarBano(id: number): Observable<ComandoRespuestaBano> {
     return this.http.get<ComandoRespuestaBano>(this.baseUrl + '/' + id, this.httpOptions);
   }
 

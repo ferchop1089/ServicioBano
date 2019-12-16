@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Cuenta } from '../../../core/modelo/Cuenta';
-import { ComandoRespuestaCuenta } from '../../../core/modelo/ComandoRespuesta';
+import { ComandoRespuestaCuenta, ComandoRespuestaCobrar } from '../../../core/modelo/ComandoRespuesta';
 import { Observable } from 'rxjs';
 import { EventoAlertService } from '../../../shared/eventos/evento-alert.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -26,12 +26,16 @@ export class GestionCuentaService extends ServicioBase {
       }), catchError(err => this.errorHandl(err)));
   }
 
-  public getCuentaPorIdBano(idBano: number): Observable<ComandoRespuestaCuenta> {
+  public buscarCuentaPorIdBano(idBano: number): Observable<ComandoRespuestaCuenta> {
     return this.http.get<ComandoRespuestaCuenta>(this.baseUrl + '/' + idBano, this.httpOptions);
   }
 
   public actualizarCuenta(cuenta: Cuenta): Observable<any> {
     return this.http.put(this.baseUrl, cuenta, this.httpOptions);
+  }
+
+  public cobrarCuenta(id: number): Observable<ComandoRespuestaCobrar> {
+    return this.http.get<ComandoRespuestaCobrar>(this.baseUrl + '/cobrar/' + id, this.httpOptions);
   }
 
 }
