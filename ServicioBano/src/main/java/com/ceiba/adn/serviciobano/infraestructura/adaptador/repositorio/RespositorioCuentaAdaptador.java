@@ -34,18 +34,11 @@ public class RespositorioCuentaAdaptador implements RepositorioCuenta {
 
 	private Long guardar(Cuenta cuenta) {
 		CuentaEntidad entidad = mapper.mapearDesde(cuenta);
-		Long id = entidad.getId();
-		if (Objects.isNull(id)) {
-			id = jpa.findMaxId();
-			if (Objects.isNull(id)) {
-				id = 1L;
-			} else {
-				id++;
-			}
-			entidad.setId(id);
+		if (Objects.isNull(entidad.getId())) {
+			entidad.setId(RepositorioHelper.getNuevoId(jpa));
 		}
 		jpa.saveAndFlush(entidad);
-		return id;
+		return entidad.getId();
 	}
 
 	@Override

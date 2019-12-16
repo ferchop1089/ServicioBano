@@ -36,18 +36,11 @@ public class RespositorioBanoAdaptador implements RepositorioBano {
 
 	private Long guardar(Bano bano) {
 		BanoEntidad entidad = mapper.mapearDesde(bano);
-		Long id = entidad.getId();
-		if (Objects.isNull(id)) {
-			id = jpa.findMaxId();
-			if (Objects.isNull(id)) {
-				id = 1L;
-			} else {
-				id++;
-			}
-			entidad.setId(id);
+		if (Objects.isNull(entidad.getId())) {
+			entidad.setId(RepositorioHelper.getNuevoId(jpa));
 		}
 		jpa.saveAndFlush(entidad);
-		return id;
+		return entidad.getId();
 	}
 
 	@Override
