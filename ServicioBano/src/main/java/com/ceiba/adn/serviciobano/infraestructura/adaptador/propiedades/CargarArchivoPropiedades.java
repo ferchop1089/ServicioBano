@@ -35,7 +35,7 @@ public class CargarArchivoPropiedades {
 		try {
 			properties.load(input);
 		} catch (IOException e) {
-			throw new ExcepcionLecturaArchivo(String.format(MSG_LECTURA_FALLIDA, pathArchivoPropiedades));
+			throw new ExcepcionLecturaArchivo(String.format(MSG_LECTURA_FALLIDA, pathArchivoPropiedades), e);
 		}
 	}
 
