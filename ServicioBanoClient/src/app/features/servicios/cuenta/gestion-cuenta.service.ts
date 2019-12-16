@@ -6,13 +6,14 @@ import { EventoAlertService } from '../../../shared/eventos/evento-alert.service
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { ServicioBase } from '../../../core/servicios/servicio-base';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GestionCuentaService extends ServicioBase {
 
-  private baseUrl = 'http://localhost:8080/servicio-bano/cuenta';
+  private baseUrl = environment.url_cuenta;
 
   constructor(eventAlert: EventoAlertService, private http: HttpClient) {
     super(eventAlert);
@@ -27,15 +28,20 @@ export class GestionCuentaService extends ServicioBase {
   }
 
   public buscarCuentaPorIdBano(idBano: number): Observable<ComandoRespuestaCuenta> {
-    return this.http.get<ComandoRespuestaCuenta>(this.baseUrl + '/' + idBano, this.httpOptions);
+    return this.http.get<ComandoRespuestaCuenta>(this.baseUrl + '/bano/' + idBano, this.httpOptions);
   }
 
   public actualizarCuenta(cuenta: Cuenta): Observable<any> {
-    return this.http.put(this.baseUrl, cuenta, this.httpOptions);
+    return this.http.patch(this.baseUrl, cuenta, this.httpOptions);
+    //return this.http.put(this.baseUrl, cuenta, this.httpOptions);
   }
 
   public cobrarCuenta(id: number): Observable<ComandoRespuestaCobrar> {
-    return this.http.get<ComandoRespuestaCobrar>(this.baseUrl + '/cobrar/' + id, this.httpOptions);
+    return this.http.get<ComandoRespuestaCobrar>(this.baseUrl + '/' + id, this.httpOptions);
+  }
+
+  public pagarCuenta(id: number): Observable<any> {
+    return this.http.put(this.baseUrl + '/' + id, this.httpOptions);
   }
 
 }

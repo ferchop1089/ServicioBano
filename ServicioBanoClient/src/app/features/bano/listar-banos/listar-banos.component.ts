@@ -20,9 +20,9 @@ export class ListarBanosComponent implements OnInit {
   faTimes = faTimes;
 
   constructor(private router: Router, private activateRoute: ActivatedRoute,
-    private gestion: GestionBanoService,
-    private shared: CompartirIdBanoService,
-    private eventEliminar: EventoEliminarBanoService) {
+              private gestion: GestionBanoService,
+              private shared: CompartirIdBanoService,
+              private eventEliminar: EventoEliminarBanoService) {
 
   }
 

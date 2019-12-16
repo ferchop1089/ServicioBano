@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" #modalOcultar id="cobrarCuentaModal" tabindex="-1" role="dialog" aria-labelledby="cobrarCuentaModalLabel" aria-hidden="true">
+<div class="modal fade" #ocultarModalCobrar id="cobrarCuentaModal" tabindex="-1" role="dialog" aria-labelledby="cobrarCuentaModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,19 +12,19 @@
                 <form>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Tarifas:</label><br>
-                        <label for="recipient-name" class="col-form-label">Tiempo basico:</label> {{ cobrar.minutosPermitidos }} min -
-                        <label for="recipient-name" class="col-form-label">Valor:</label> $1000 arreglar<br>
-                        <label for="recipient-name" class="col-form-label">Valor minuto adicional: ${{ cobrar.valorMinutoAdicional }}</label><br>
-                        <label for="recipient-name" class="col-form-label">Valor sobre adicional: ${{ cobrar.valorSobreAdicional }}</label>
+                        <label for="recipient-name" class="col-form-label">Tiempo máximo:</label> {{ cobrar.minutosPermitidos }} min -
+                        <label for="recipient-name" class="col-form-label">Valor:</label> ${{ cobrar.tarifaMinutosPermitidos }}<br>
+                        <label for="recipient-name" class="col-form-label">Valor minuto adicional: ${{ cobrar.tarifaMinutoAdicional }}</label><br>
+                        <label for="recipient-name" class="col-form-label">Valor sobre adicional: ${{ cobrar.tarifaSobreAdicional }}</label>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Resumen cobro:</label><br>
                         <label for="recipient-name" class="col-form-label">Fecha de ingreso:</label> {{ cobrar.cuenta.fechaIngreso }}<br>
                         <label for="message-text" class="col-form-label">Minutos ocupados:</label> {{ cobrar.minutosTranscurridos }} min<br>
                         <label for="message-text" class="col-form-label">Minutos adicionales:</label> {{ cobrar.minutosAdicionales }} min -
-                        <label for="message-text" class="col-form-label">Valor:</label> $2000 arreglar<br>
-                        <label for="message-text" class="col-form-label">Sobres adicionales:</label> {{ cobrar.cuenta.sobres }} -
-                        <label for="message-text" class="col-form-label">Valor:</label> $400 arreglar<br>
+                        <label for="message-text" class="col-form-label">Valor:</label> ${{ cobrar.subtotalMinutosAdicionales }}<br>
+                        <label for="message-text" class="col-form-label">Sobres adicionales:</label> {{ cobrar.sobresAdicionales }} -
+                        <label for="message-text" class="col-form-label">Valor:</label> ${{ cobrar.subtotalSobresAdicionales }}<br>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Total a pagar:</label> ${{ cobrar.cuenta.totalCobro }}<br>
@@ -33,7 +33,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary mr-2" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-outline-primary">Pagar</button>
+                <button type="button" class="btn btn-outline-primary" (click)="pagar(cobrar.cuenta.id)">Pagar</button>
             </div>
         </div>
     </div>

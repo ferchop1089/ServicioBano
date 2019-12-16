@@ -3,7 +3,6 @@ import { CompartirIdBanoService } from '../../../shared/eventos/compartir-id-ban
 import { GestionBanoService } from '../../servicios/bano/gestion-bano.service';
 import { EventoEliminarBanoService } from '../../../shared/eventos/evento-eliminar-bano.service';
 import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.service';
-import { Bano } from '../../../core/modelo/Bano';
 
 @Component({
   selector: 'app-eliminar-bano',
@@ -14,11 +13,11 @@ export class EliminarBanoComponent implements OnInit {
 
   idBano: number;
 
-  @ViewChild('modalOcultar', { static: false })
+  @ViewChild('ocultarModalEliminarBano', { static: false })
   closeModal: ElementRef;
 
   constructor(private shared: CompartirIdBanoService, private eventEliminar: EventoEliminarBanoService,
-    private eventAlert: EventoAlertService, private gestion: GestionBanoService) {
+              private eventAlert: EventoAlertService, private gestion: GestionBanoService) {
   }
 
   ngOnInit() {

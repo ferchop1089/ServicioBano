@@ -7,13 +7,14 @@ import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.
 import { ComandoRespuestaBano, ComandoRespuestaBanoLista } from '../../../core/modelo/ComandoRespuesta';
 import { map, catchError } from 'rxjs/operators';
 import { ServicioBase } from '../../../core/servicios/servicio-base';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GestionBanoService extends ServicioBase {
 
-  private baseUrl = 'http://localhost:8080/servicio-bano/bano';
+  private baseUrl = environment.url_bano;
 
   constructor(private http: HttpClient, eventAlert: EventoAlertService) {
     super(eventAlert);
