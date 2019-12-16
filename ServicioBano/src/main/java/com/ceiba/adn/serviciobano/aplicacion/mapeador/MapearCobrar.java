@@ -22,9 +22,11 @@ public class MapearCobrar implements Mapeador<ComandoCobrar, Cobrar> {
 		if (Objects.isNull(source)) {
 			return null;
 		}
-		return new Cobrar(mapearCuenta.mapearA(source.getCuenta()), source.getValorSobreAdicional(),
-				source.getValorMinutoAdicional(), source.getMinutosPermitidos(), source.getMinutosTranscurridos(),
-				source.getMinutosAdicionales());
+		return new Cobrar(mapearCuenta.mapearA(source.getCuenta()), source.getTarifaSobreAdicional(),
+				source.getTarifaMinutoAdicional(), source.getMinutosPermitidos(), source.getMinutosTranscurridos(),
+				source.getMinutosAdicionales(), source.getTarifaMinutosPermitidos(),
+				source.getSubtotalMinutosAdicionales(), source.getSubtotalSobresAdicionales(),
+				source.getSobresAdicionales());
 	}
 
 	@Override
@@ -32,9 +34,11 @@ public class MapearCobrar implements Mapeador<ComandoCobrar, Cobrar> {
 		if (Objects.isNull(source)) {
 			return null;
 		}
-		return new ComandoCobrar(mapearCuenta.mapearDesde(source.getCuenta()), source.getValorSobreAdicional(),
-				source.getValorMinutoAdicional(), source.getMinutosPermitidos(), source.getMinutosTranscurridos(),
-				source.getMinutosAdicionales());
+		return new ComandoCobrar(mapearCuenta.mapearDesde(source.getCuenta()), source.getTarifaSobreAdicional(),
+				source.getTarifaMinutoAdicional(), source.getMinutosPermitidos(), source.getMinutosTranscurridos(),
+				source.getMinutosAdicionales(), source.getTarifaMinutosPermitidos(),
+				source.getSubtotalMinutosAdicionales(), source.getSubtotalSobresAdicionales(),
+				source.getSobresAdicionales());
 	}
 
 }

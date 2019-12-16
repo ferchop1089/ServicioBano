@@ -50,32 +50,35 @@ public class ServicioCobrarCuenta {
 		Integer sobres = cuenta.getSobres();
 		LocalDateTime fechaIngreso = cuenta.getFechaIngreso();
 		LocalDateTime ahora = LocalDateTime.now();
-
-		Long minutosTranscurridos = Duration.between(fechaIngreso, ahora).toMinutes();
-		Long minutosPermitidos = Long.parseLong(propConfig.getPropiedad(CONFIG_MINUTOS_PERMITIDOS)); // 15 min
+		
 		Long minutosAdicionales = 0L;
-		
-		BigDecimal valorMinutoAdicional = new BigDecimal(propConfig.getPropiedad(CONFIG_TARIFA_MINUTO_ADICIONAL)); // $200
-		BigDecimal valorSobreAdicional = new BigDecimal(propConfig.getPropiedad(CONFIG_TARIFA_SOBRE_ADICIONAL)); // $200
-		BigDecimal valorTarifaInicial = new BigDecimal(propConfig.getPropiedad(CONFIG_TARIFA_INICIAL)); // $1000
+		Long sobresAdicionales = 0L;
 
-		BigDecimal cobroTiempoAdicional = new BigDecimal(0);
-		BigDecimal cobroSobreAdicional = new BigDecimal(0);
-		
-		
+		Long minutosPermitidos = Long.parseLong(propConfig.getPropiedad(CONFIG_MINUTOS_PERMITIDOS)); // 15 min
+		BigDecimal tarifaSobreAdicional = new BigDecimal(propConfig.getPropiedad(CONFIG_TARIFA_SOBRE_ADICIONAL)); // $200
+		BigDecimal tarifaMinutoAdicional = new BigDecimal(propConfig.getPropiedad(CONFIG_TARIFA_MINUTO_ADICIONAL)); // $200
+		BigDecimal tarifaMinutosPermitidos = new BigDecimal(propConfig.getPropiedad(CONFIG_TARIFA_INICIAL)); // $1000
+
+		BigDecimal subtotalMinutosAdicionales = new BigDecimal(0);
+		BigDecimal subtotalSobresAdicionales = new BigDecimal(0);
+		Long minutosTranscurridos = Duration.between(fechaIngreso, ahora).toMinutes();
+		minutosTranscurridos = minutosTranscurridos == 0L ? 1L : minutosTranscurridos; // Si la diferencia es de cero se toma como el primer minuto
 
 		if (minutosTranscurridos > minutosPermitidos) {
 			minutosAdicionales = minutosTranscurridos - minutosPermitidos;
-			cobroTiempoAdicional = new BigDecimal(minutosAdicionales).multiply(valorMinutoAdicional);
+			subtotalMinutosAdicionales = new BigDecimal(minutosAdicionales).multiply(tarifaMinutoAdicional);
 		}
 		if (Objects.nonNull(sobres) && sobres > 1) {
-			cobroSobreAdicional = new BigDecimal(sobres - 1).multiply(valorSobreAdicional);
+			sobresAdicionales = sobres - 1L;
+			subtotalSobresAdicionales = new BigDecimal(sobresAdicionales).multiply(tarifaSobreAdicional);
 		}
 
-		BigDecimal valorTotal = valorTarifaInicial.add(cobroTiempoAdicional).add(cobroSobreAdicional);
+		BigDecimal valorTotal = tarifaMinutosPermitidos.add(subtotalMinutosAdicionales).add(subtotalSobresAdicionales);
 		cuenta.setTotalCobro(valorTotal);
-		
-		return new Cobrar(cuenta, valorSobreAdicional, valorMinutoAdicional, minutosPermitidos, minutosTranscurridos, minutosAdicionales);
+
+		return new Cobrar(cuenta, tarifaSobreAdicional, tarifaMinutoAdicional, minutosPermitidos, minutosTranscurridos,
+				minutosAdicionales, tarifaMinutosPermitidos, subtotalMinutosAdicionales, subtotalSobresAdicionales,
+				sobresAdicionales);
 	}
 
 }
