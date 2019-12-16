@@ -11,7 +11,6 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -23,6 +22,7 @@ import org.mockito.MockitoAnnotations;
 import com.ceiba.adn.serviciobano.comun.puerto.Propiedades;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionValorObligatorio;
+import com.ceiba.adn.serviciobano.dominio.modelo.Cobrar;
 import com.ceiba.adn.serviciobano.dominio.modelo.Cuenta;
 import com.ceiba.adn.serviciobano.dominio.puerto.repositorio.RepositorioCuenta;
 import com.ceiba.adn.serviciobano.infraestructura.adaptador.propiedades.FabricaPropiedades;
@@ -94,11 +94,12 @@ public class ServicioCobrarCuentaTest {
 		doReturn(Optional.of(cuenta)).when(repositorio).buscarPorId(cuenta.getId());
 
 		// act
-		BigDecimal cobro = servicio.cobrar(cuenta.getId());
+		Cobrar cobro = servicio.cobrar(cuenta.getId());
 
 		// assert
 		verify(repositorio, times(1)).buscarPorId(anyLong());
 		assertThat(cobro, is(notNullValue()));
+		assertThat(cobro.getCuenta(), is(notNullValue()));
 	}
 
 	@Test
@@ -108,11 +109,12 @@ public class ServicioCobrarCuentaTest {
 		doReturn(Optional.of(cuenta)).when(repositorio).buscarPorId(cuenta.getId());
 
 		// act
-		BigDecimal cobro = servicio.cobrar(cuenta.getId());
+		Cobrar cobro = servicio.cobrar(cuenta.getId());
 
 		// assert
 		verify(repositorio, times(1)).buscarPorId(anyLong());
 		assertThat(cobro, is(notNullValue()));
+		assertThat(cobro.getCuenta(), is(notNullValue()));
 	}
 
 }

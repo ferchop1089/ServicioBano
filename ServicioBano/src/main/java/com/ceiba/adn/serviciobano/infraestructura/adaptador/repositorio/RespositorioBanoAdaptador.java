@@ -1,6 +1,7 @@
 package com.ceiba.adn.serviciobano.infraestructura.adaptador.repositorio;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,18 @@ public class RespositorioBanoAdaptador implements RepositorioBano {
 
 	private Long guardar(Bano bano) {
 		BanoEntidad entidad = mapper.mapearDesde(bano);
-		return mapper.mapearA(jpa.saveAndFlush(entidad)).getId();
+		Long id = entidad.getId();
+		if (Objects.isNull(id)) {
+			id = jpa.findMaxId();
+			if (Objects.isNull(id)) {
+				id = 1L;
+			} else {
+				id++;
+			}
+			entidad.setId(id);
+		}
+		jpa.saveAndFlush(entidad);
+		return id;
 	}
 
 	@Override
