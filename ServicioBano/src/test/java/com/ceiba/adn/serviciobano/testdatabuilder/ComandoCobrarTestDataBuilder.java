@@ -9,9 +9,9 @@ public class ComandoCobrarTestDataBuilder {
 
 	private ComandoCuenta cuenta;
 
-	private BigDecimal valorSobreAdicional;
+	private BigDecimal tarifaSobreAdicional;
 
-	private BigDecimal valorMinutoAdicional;
+	private BigDecimal tarifaMinutoAdicional;
 
 	private Long minutosPermitidos;
 
@@ -19,13 +19,25 @@ public class ComandoCobrarTestDataBuilder {
 
 	private Long minutosAdicionales;
 
+	private Long sobresAdicionales;
+
+	private BigDecimal tarifaMinutosPermitidos;
+
+	private BigDecimal subtotalMinutosAdicionales;
+
+	private BigDecimal subtotalSobresAdicionales;
+
 	public ComandoCobrarTestDataBuilder() {
 		this.cuenta = new ComandoCuentaTestDataBuilder().build();
-		this.valorSobreAdicional = new BigDecimal(200);
-		this.valorMinutoAdicional = new BigDecimal(200);
+		this.tarifaSobreAdicional = new BigDecimal(200);
+		this.tarifaMinutoAdicional = new BigDecimal(100);
 		this.minutosPermitidos = 15L;
-		this.minutosTranscurridos = 30L;
-		this.minutosAdicionales = 15L;
+		this.minutosTranscurridos = 8L;
+		this.minutosAdicionales = 0L;
+		this.tarifaMinutosPermitidos = new BigDecimal(1000);
+		this.subtotalMinutosAdicionales = new BigDecimal(0L);
+		this.subtotalSobresAdicionales = new BigDecimal(0L);
+		this.sobresAdicionales = 0L;
 	}
 
 	public ComandoCobrarTestDataBuilder withCuenta(ComandoCuenta cuenta) {
@@ -33,13 +45,13 @@ public class ComandoCobrarTestDataBuilder {
 		return this;
 	}
 
-	public ComandoCobrarTestDataBuilder withValorSobreAdicional(BigDecimal valorSobreAdicional) {
-		this.valorSobreAdicional = valorSobreAdicional;
+	public ComandoCobrarTestDataBuilder withTarifaSobreAdicional(BigDecimal tarifaSobreAdicional) {
+		this.tarifaSobreAdicional = tarifaSobreAdicional;
 		return this;
 	}
 
-	public ComandoCobrarTestDataBuilder withValorMinutoAdicional(BigDecimal valorMinutoAdicional) {
-		this.valorMinutoAdicional = valorMinutoAdicional;
+	public ComandoCobrarTestDataBuilder withTarifaMinutoAdicional(BigDecimal tarifaMinutoAdicional) {
+		this.tarifaMinutoAdicional = tarifaMinutoAdicional;
 		return this;
 	}
 
@@ -58,9 +70,30 @@ public class ComandoCobrarTestDataBuilder {
 		return this;
 	}
 
+	public ComandoCobrarTestDataBuilder withTarifaMinutosPermitidos(BigDecimal tarifaMinutosPermitidos) {
+		this.tarifaMinutosPermitidos = tarifaMinutosPermitidos;
+		return this;
+	}
+
+	public ComandoCobrarTestDataBuilder withSubtotalMinutosAdicionales(BigDecimal subtotalMinutosAdicionales) {
+		this.subtotalMinutosAdicionales = subtotalMinutosAdicionales;
+		return this;
+	}
+
+	public ComandoCobrarTestDataBuilder withSubtotalSobresAdicionales(BigDecimal subtotalSobresAdicionales) {
+		this.subtotalSobresAdicionales = subtotalSobresAdicionales;
+		return this;
+	}
+
+	public ComandoCobrarTestDataBuilder withSobresAdicionales(Long sobresAdicionales) {
+		this.sobresAdicionales = sobresAdicionales;
+		return this;
+	}
+
 	public ComandoCobrar build() {
-		return new ComandoCobrar(cuenta, valorSobreAdicional, valorMinutoAdicional, minutosPermitidos,
-				minutosTranscurridos, minutosAdicionales);
+		return new ComandoCobrar(cuenta, tarifaSobreAdicional, tarifaMinutoAdicional, minutosPermitidos,
+				minutosTranscurridos, minutosAdicionales, tarifaMinutosPermitidos, subtotalMinutosAdicionales,
+				subtotalSobresAdicionales, sobresAdicionales);
 	}
 
 }

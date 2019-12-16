@@ -63,8 +63,12 @@ public class MapearCobrarTest {
 		assertEquals(b.getMinutosAdicionales(), comando.getMinutosAdicionales());
 		assertEquals(b.getMinutosPermitidos(), comando.getMinutosPermitidos());
 		assertEquals(b.getMinutosTranscurridos(), comando.getMinutosTranscurridos());
-		assertEquals(b.getValorMinutoAdicional(), comando.getValorMinutoAdicional());
-		assertEquals(b.getValorSobreAdicional(), comando.getValorSobreAdicional());
+		assertEquals(b.getSobresAdicionales(), comando.getSobresAdicionales());
+		assertEquals(b.getSubtotalMinutosAdicionales(), comando.getSubtotalMinutosAdicionales());
+		assertEquals(b.getSubtotalSobresAdicionales(), comando.getSubtotalSobresAdicionales());
+		assertEquals(b.getTarifaMinutoAdicional(), comando.getTarifaMinutoAdicional());
+		assertEquals(b.getTarifaMinutosPermitidos(), comando.getTarifaMinutosPermitidos());
+		assertEquals(b.getTarifaSobreAdicional(), comando.getTarifaSobreAdicional());
 		assertNotNull(b.getCuenta());
 	}
 
@@ -95,8 +99,12 @@ public class MapearCobrarTest {
 		assertEquals(b.getMinutosAdicionales(), cobrar.getMinutosAdicionales());
 		assertEquals(b.getMinutosPermitidos(), cobrar.getMinutosPermitidos());
 		assertEquals(b.getMinutosTranscurridos(), cobrar.getMinutosTranscurridos());
-		assertEquals(b.getValorMinutoAdicional(), cobrar.getValorMinutoAdicional());
-		assertEquals(b.getValorSobreAdicional(), cobrar.getValorSobreAdicional());
+		assertEquals(b.getSobresAdicionales(), cobrar.getSobresAdicionales());
+		assertEquals(b.getSubtotalMinutosAdicionales(), cobrar.getSubtotalMinutosAdicionales());
+		assertEquals(b.getSubtotalSobresAdicionales(), cobrar.getSubtotalSobresAdicionales());
+		assertEquals(b.getTarifaMinutoAdicional(), cobrar.getTarifaMinutoAdicional());
+		assertEquals(b.getTarifaMinutosPermitidos(), cobrar.getTarifaMinutosPermitidos());
+		assertEquals(b.getTarifaSobreAdicional(), cobrar.getTarifaSobreAdicional());
 		assertNotNull(b.getCuenta());
 	}
 
