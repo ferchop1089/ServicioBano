@@ -33,7 +33,6 @@ export class GestionCuentaService extends ServicioBase {
 
   public actualizarCuenta(cuenta: Cuenta): Observable<any> {
     return this.http.patch(this.baseUrl, cuenta, this.httpOptions);
-    //return this.http.put(this.baseUrl, cuenta, this.httpOptions);
   }
 
   public cobrarCuenta(id: number): Observable<ComandoRespuestaCobrar> {
