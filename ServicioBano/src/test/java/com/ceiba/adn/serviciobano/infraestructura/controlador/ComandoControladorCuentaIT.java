@@ -122,4 +122,17 @@ public class ComandoControladorCuentaIT {
 				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print()).andExpect(status().isOk());
 	}
 
+	@Test
+	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/cuenta/data-insert-cuenta-fecha-ingreso-nulo-ok.sql")
+	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/cuenta/data-delete-cuenta-fecha-ingreso-nulo-ok.sql")
+	public void cuandoCuentaConFechaIngresoNuloOkEntoncesDeberiaCrearla() throws Exception {
+		// arrange
+		ComandoCuenta cuenta = new ComandoCuentaTestDataBuilder().withId(75L).withFechaIngreso(null).withIdBano(64L)
+				.build();
+
+		// act - assert
+		mockMvc.perform(post(URL_BASE).contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapperTest.writeValueAsString(cuenta))).andDo(print()).andExpect(status().isOk());
+	}
+
 }

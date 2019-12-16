@@ -12,10 +12,6 @@ public class ServicioConsultasCuenta {
 	public ServicioConsultasCuenta(RepositorioCuenta repositorio) {
 		this.repositorio = repositorio;
 	}
-
-	public Optional<Cuenta> buscarCuentaPorId(Long id) {
-		return repositorio.buscarPorId(id);
-	}
 	
 	public Optional<Cuenta> buscarCuentaPorIdBano(Long idBano) {
 		return repositorio.buscarPorIdBano(idBano);
