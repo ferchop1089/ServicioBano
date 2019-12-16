@@ -1,1 +1,0 @@
-DELETE FROM Bano WHERE id in (25, 26);

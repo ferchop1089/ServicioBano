@@ -51,13 +51,13 @@ public class ComandoControladorBanoIT {
 	}
 
 	@Test
-	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/actualizar/data-insert-bano.sql")
-	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/actualizar/data-delete-bano.sql")
+	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/bano/data-insert-actualizar-bano-ok.sql")
+	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/bano/data-delete-actualizar-bano-ok.sql")
 	public void cuandoPeticionActualizarBanoCorrectaEntoncesDeberiaActualizar() throws Exception {
 		// arrange
 		ComandoBano bano = new ComandoBanoTestDataBuilder().build();
-		bano.setId(10L);
-		bano.setIdentificador("Bano 11");
+		bano.setId(100L);
+		bano.setIdentificador("Bano nuevo");
 
 		// act - assert
 		mockMvc.perform(put(URL_BASE).contentType(MediaType.APPLICATION_JSON)
@@ -65,7 +65,7 @@ public class ComandoControladorBanoIT {
 	}
 
 	@Test
-	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/eliminar/data-delete-todos-banos.sql")
+	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/bano/data-delete-todos-banos.sql")
 	public void cuandoPeticionCrearBanoYIdNuloCorrectaEntoncesDeberiaCrear() throws Exception {
 		// arrange
 		ComandoBano bano = new ComandoBanoTestDataBuilder().build();
@@ -77,12 +77,12 @@ public class ComandoControladorBanoIT {
 	}
 
 	@Test
-	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/crear/data-delete-bano.sql")
+	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/bano/data-delete-crear-bano-id-no-nulo-ok.sql")
 	public void cuandoPeticionCrearBanoYIdNoNuloYNoDuplicadoCorrectaEntoncesDeberiaCrear() throws Exception {
 		// arrange
 		ComandoBano bano = new ComandoBanoTestDataBuilder().build();
-		bano.setId(20L);
-		bano.setIdentificador("Bano 20");
+		bano.setId(99L);
+		bano.setIdentificador("Bano 99");
 
 		// act - assert
 		mockMvc.perform(post(URL_BASE).contentType(MediaType.APPLICATION_JSON)
@@ -90,10 +90,10 @@ public class ComandoControladorBanoIT {
 	}
 
 	@Test
-	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/eliminar/data-insert-bano.sql")
+	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/bano/data-insert-eliminar-bano-id-ok.sql")
 	public void cuandoPeticionEliminarBanoPorIdCorrectaEntoncesDeberiaEliminar() throws Exception {
 		// arrange
-		Long id = 30L;
+		Long id = 98L;
 
 		// act - assert
 		mockMvc.perform(delete(URL_BASE + "/{id}", id).contentType(MediaType.APPLICATION_JSON)
@@ -101,8 +101,8 @@ public class ComandoControladorBanoIT {
 	}
 
 	@Test
-	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/consultar/data-insert-5-banos.sql")
-	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/consultar/data-delete-5-banos.sql")
+	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/bano/data-insert-listar-5-banos-ok.sql")
+	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/bano/data-delete-listar-5-banos-ok.sql")
 	public void cuandoPeticionListarBanosOkEntoncesDeberiaRetornarListar() throws Exception {
 		// arrange - act - assert
 		mockMvc.perform(get(URL_BASE).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
@@ -110,8 +110,8 @@ public class ComandoControladorBanoIT {
 	}
 
 	@Test
-	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/crear/data-insert-bano.sql")
-	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/crear/data-delete-bano.sql")
+	@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = "/scripts/sql/controlador/bano/data-insert-consultar-bano-id-ok.sql")
+	@Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "/scripts/sql/controlador/bano/data-delete-consultar-bano-id-ok.sql")
 	public void cuandoPeticionConsultarBanoPorIdOkEntoncesDeberiaRetornarBano() throws Exception {
 		// arrange
 		Long id = 20L;

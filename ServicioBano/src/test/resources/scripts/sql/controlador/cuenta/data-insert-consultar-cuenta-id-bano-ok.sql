@@ -1,0 +1,2 @@
+INSERT INTO Bano(id, identificador, estado) VALUES (67,'Bano 67','OCUPADO');
+INSERT INTO Cuenta (id, sobres, id_Bano, estado, total_Cobro, fecha_Ingreso) VALUES (78, 1, 67, 'ABIERTA', 0, {ts '2012-09-17 18:47:52.69'});
