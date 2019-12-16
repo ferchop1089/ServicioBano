@@ -29,7 +29,7 @@ export class CrearBanoComponent implements OnInit {
       b.id = null;
       b.estado = EstadoBano.DISPONIBLE;
 
-      this.gestion.crearBanoRest(b).subscribe({
+      this.gestion.crearBano(b).subscribe({
         next: () => {
           const tipoAlerta = 'alert-success';
           const mensaje = 'El registro fue creado <strong>exitosamente</strong>';

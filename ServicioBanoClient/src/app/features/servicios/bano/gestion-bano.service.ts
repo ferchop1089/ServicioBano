@@ -19,22 +19,22 @@ export class GestionBanoService extends ServicioBase {
     super(eventAlert);
   }
 
-  public getBanosRest(): Observable<ComandoRespuestaBanoLista> {
+  public listarBanos(): Observable<ComandoRespuestaBanoLista> {
     return this.http.get<ComandoRespuestaBanoLista>(this.baseUrl + '/consultar', this.httpOptions);
   }
 
-  public getBanoRest(id: number): Observable<ComandoRespuestaBano> {
+  public listarBano(id: number): Observable<ComandoRespuestaBano> {
     return this.http.get<ComandoRespuestaBano>(this.baseUrl + '/consultar/' + id, this.httpOptions);
   }
 
-  public crearBanoRest(bano: Bano): Observable<ComandoRespuestaBano> {
+  public crearBano(bano: Bano): Observable<ComandoRespuestaBano> {
     return this.http.post<number>(this.baseUrl + '/crear', bano, this.httpOptions)
       .pipe(map(idNuevo => {
         return new ComandoRespuestaBano(new Bano(idNuevo, bano.identificador, bano.estado));
       }), catchError(err => this.errorHandl(err)));
   }
 
-  public ActualizarBanoRest(bano: Bano) {
+  public actualizarBano(bano: Bano) {
     this.http.put(this.baseUrl + '/actualizar', bano, this.httpOptions).subscribe({
       next: () => {
         const tipoAlerta = 'alert-success';
@@ -45,7 +45,7 @@ export class GestionBanoService extends ServicioBase {
     });
   }
 
-  public eliminarBanoRest(id: number): Observable<Bano> {
+  public eliminarBano(id: number): Observable<Bano> {
     return this.http.delete<Bano>(this.baseUrl + '/eliminar/' + id, this.httpOptions);
   }
 

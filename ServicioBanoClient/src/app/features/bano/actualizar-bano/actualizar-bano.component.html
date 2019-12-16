@@ -3,12 +3,12 @@
         <label for="identificador">Nombre</label>
         <input type="text" class="form-control" id="identificador" formControlName="identificador" aria-describedby="identificadorHelp">
         <small id="identificadorHelp" class="form-text text-muted">El nombre del baño no debe repetirse.</small>
-        <div *ngIf="form.controls.identificador.errors && form.controls.identificador.touched" class="error">
+        <div *ngIf="formulario.controls.identificador.errors && form.controls.identificador.touched" class="error">
             *Campo requerido
         </div>
 
         <div class="custom-control custom-switch" *ngIf="mostrarCheck">
-            <input type="checkbox" class="custom-control-input" id="estado" formControlName="estado" [checked]="checkDiponible">
+            <input type="checkbox" class="custom-control-input" id="estado" formControlName="estado" [checked]="checkDisponible">
             <label class="custom-control-label" for="estado">Disponible</label>
         </div>
     </div>

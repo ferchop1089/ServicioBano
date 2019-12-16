@@ -32,7 +32,7 @@ export class ListarBanosComponent implements OnInit {
       this.listaBanos.splice(index, 1);
     });
 
-    this.gestion.getBanosRest().subscribe({
+    this.gestion.listarBanos().subscribe({
       next: (rta: ComandoRespuestaBanoLista) => {
         const lista: Bano[] = rta.respuesta;
         for (let index = 0; index < lista.length; index++) {

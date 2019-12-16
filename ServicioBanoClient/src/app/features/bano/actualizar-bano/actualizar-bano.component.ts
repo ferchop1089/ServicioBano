@@ -16,9 +16,9 @@ import { isBoolean } from 'util';
 })
 export class ActualizarBanoComponent implements OnInit {
 
-  checkDiponible: string;
+  checkDisponible: string;
   mostrarCheck: boolean;
-  form: FormGroup;
+  formulario: FormGroup;
   banoObs: Observable<Bano>;
   idBano: number;
 
@@ -27,16 +27,16 @@ export class ActualizarBanoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
+    this.formulario = this.formBuilder.group({
       identificador: ['', Validators.required],
       estado: []
     });
 
     this.route.paramMap.pipe(map(paramMap => paramMap.get('id'))).subscribe({
       next: (id: string) => {
-        this.banoObs = this.gestion.getBanoRest(Number(id))
+        this.banoObs = this.gestion.listarBano(Number(id))
           .pipe(map(t => t.respuesta), catchError(err => this.gestion.errorHandl(err)))
-          .pipe(tap(ba => this.form.patchValue(ba)));
+          .pipe(tap(ba => this.formulario.patchValue(ba)));
       }
     });
 
@@ -45,32 +45,32 @@ export class ActualizarBanoComponent implements OnInit {
         this.idBano = bano.id;
         if (bano.estado === EstadoBano.DISPONIBLE) {
           this.mostrarCheck = true;
-          this.checkDiponible = 'checked';
+          this.checkDisponible = 'checked';
         } else if (bano.estado === EstadoBano.OCUPADO) {
           this.mostrarCheck = false;
-          this.checkDiponible = null;
+          this.checkDisponible = null;
         } else if (bano.estado === EstadoBano.FUERA_SERVICIO) {
           this.mostrarCheck = true;
-          this.checkDiponible = null;
+          this.checkDisponible = null;
         }
       }
     });
   }
 
   public submit() {
-    if (this.form.valid) {
-      const valor: any = this.form.get('estado').value;
-      const b: Bano = this.form.value;
+    if (this.formulario.valid) {
+      const valor: any = this.formulario.get('estado').value;
+      const bano: Bano = this.formulario.value;
 
       if (isBoolean(valor)) {
         if (valor) {
-          b.estado = EstadoBano.DISPONIBLE;
+          bano.estado = EstadoBano.DISPONIBLE;
         } else {
-          b.estado = EstadoBano.FUERA_SERVICIO;
+          bano.estado = EstadoBano.FUERA_SERVICIO;
         }
       }
-      const banoUpdate: Bano = new Bano(this.idBano, b.identificador, b.estado);
-      this.gestion.ActualizarBanoRest(banoUpdate);
+      const banoUpdate: Bano = new Bano(this.idBano, bano.identificador, bano.estado);
+      this.gestion.actualizarBano(banoUpdate);
     }
   }
 

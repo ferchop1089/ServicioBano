@@ -17,7 +17,8 @@ export class EliminarBanoComponent implements OnInit {
   @ViewChild('modalOcultar', { static: false })
   closeModal: ElementRef;
 
-  constructor(private shared: CompartirIdBanoService, private eventEliminar: EventoEliminarBanoService, private eventAlert: EventoAlertService, private gestion: GestionBanoService) {
+  constructor(private shared: CompartirIdBanoService, private eventEliminar: EventoEliminarBanoService,
+    private eventAlert: EventoAlertService, private gestion: GestionBanoService) {
   }
 
   ngOnInit() {
@@ -27,7 +28,7 @@ export class EliminarBanoComponent implements OnInit {
   }
 
   public eliminar() {
-    this.gestion.eliminarBanoRest(this.idBano).subscribe({
+    this.gestion.eliminarBano(this.idBano).subscribe({
       next: () => { },
       error: (err: any) => {
         this.closeModal.nativeElement.click();
