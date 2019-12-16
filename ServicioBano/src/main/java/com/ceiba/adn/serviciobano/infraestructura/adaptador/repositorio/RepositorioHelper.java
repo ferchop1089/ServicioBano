@@ -2,7 +2,7 @@ package com.ceiba.adn.serviciobano.infraestructura.adaptador.repositorio;
 
 import java.util.Objects;
 
-public class RepositorioHelper {
+public final class RepositorioHelper {
 
 	private RepositorioHelper() {
 	}
