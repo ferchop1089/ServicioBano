@@ -17,6 +17,7 @@ import com.ceiba.adn.serviciobano.dominio.servicio.bano.ServicioCrearBano;
 import com.ceiba.adn.serviciobano.dominio.servicio.bano.ServicioEliminarBano;
 import com.ceiba.adn.serviciobano.dominio.servicio.cuenta.ServicioActualizarCuenta;
 import com.ceiba.adn.serviciobano.dominio.servicio.cuenta.ServicioCobrarCuenta;
+import com.ceiba.adn.serviciobano.dominio.servicio.cuenta.ServicioConsultasCuenta;
 import com.ceiba.adn.serviciobano.dominio.servicio.cuenta.ServicioCrearCuenta;
 import com.ceiba.adn.serviciobano.infraestructura.adaptador.propiedades.FabricaPropiedades;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -77,6 +78,11 @@ public class BeanServicio {
 	public ServicioActualizarCuenta crearServicioActualizarCuenta(RepositorioCuenta repositorio,
 			RepositorioBano repositorioBano, @Qualifier("crearPropiedadMensajesPorDefecto") Propiedades propMsg) {
 		return new ServicioActualizarCuenta(repositorio, repositorioBano, propMsg);
+	}
+	
+	@Bean
+	public ServicioConsultasCuenta crearServicioConsultasCuenta(RepositorioCuenta repositorio) {
+		return new ServicioConsultasCuenta(repositorio);
 	}
 
 	public static final String FORMATO_LOCAL_DATE_TIME = "yyyy-MM-dd HH:mm:ss";

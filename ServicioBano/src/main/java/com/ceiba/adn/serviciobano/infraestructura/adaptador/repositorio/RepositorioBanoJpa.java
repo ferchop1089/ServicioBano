@@ -16,5 +16,8 @@ public interface RepositorioBanoJpa extends JpaRepository<BanoEntidad, Long> {
 	public String findEstadoBanoEntidadById(@Param("id") Long id);
 
 	public boolean existsByIdentificador(@Param("identificador") String identificador);
+	
+	@Query("SELECT max(b.id) FROM BanoEntidad b")
+	public Long findMaxId();
 
 }

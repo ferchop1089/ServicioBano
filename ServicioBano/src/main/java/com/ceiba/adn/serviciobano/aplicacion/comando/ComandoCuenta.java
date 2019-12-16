@@ -42,48 +42,28 @@ public class ComandoCuenta {
 		return id;
 	}
 
-	public void setId(Long id0) {
-		this.id = id0;
-	}
-
 	public Long getIdBano() {
 		return idBano;
-	}
-
-	public void setIdBano(Long idBano0) {
-		this.idBano = idBano0;
 	}
 
 	public Integer getSobres() {
 		return sobres;
 	}
 
-	public void setSobres(Integer sobres0) {
-		this.sobres = sobres0;
-	}
-
 	public String getEstado() {
 		return estado;
-	}
-
-	public void setEstado(String estado0) {
-		this.estado = estado0;
 	}
 
 	public LocalDateTime getFechaIngreso() {
 		return fechaIngreso;
 	}
-
-	public void setFechaIngreso(LocalDateTime fechaIngreso0) {
-		this.fechaIngreso = fechaIngreso0;
+	
+	public void setFechaIngreso(LocalDateTime fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
 	}
-
+	
 	public BigDecimal getTotalCobro() {
 		return totalCobro;
-	}
-
-	public void setTotalCobro(BigDecimal totalCobro0) {
-		this.totalCobro = totalCobro0;
 	}
 
 }

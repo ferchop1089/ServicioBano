@@ -14,7 +14,7 @@ public class Bano {
 		validarCampos(identificador, estado);
 
 		this.id = id;
-		this.identificador = identificador;
+		this.identificador = identificador.trim();
 		this.estado = estado;
 	}
 

@@ -40,7 +40,7 @@ public class ManejadorPagarCuenta implements ManejadorComando<ComandoCuenta> {
 		cuenta.setIdBano(null);
 		servicioCuenta.actualizarCuenta(cuenta);
 
-		Optional<Bano> banoOpt = servicioConsultasBano.buscarBano(cuenta.getId());
+		Optional<Bano> banoOpt = servicioConsultasBano.buscarBano(comando.getIdBano());
 		banoOpt.ifPresent(t -> {
 			t.setEstado(EstadoBano.DISPONIBLE.getEstado());
 			servicioBano.actualizarBano(t);

@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import com.ceiba.adn.serviciobano.comun.puerto.Propiedades;
 import com.ceiba.adn.serviciobano.dominio.excepcion.ExcepcionSinDatos;
+import com.ceiba.adn.serviciobano.dominio.modelo.Cobrar;
 import com.ceiba.adn.serviciobano.dominio.modelo.Cuenta;
 import com.ceiba.adn.serviciobano.dominio.puerto.repositorio.RepositorioCuenta;
 
@@ -33,7 +34,7 @@ public class ServicioCobrarCuenta {
 		this.propConfig = propConfig;
 	}
 
-	public BigDecimal cobrar(Long id) {
+	public Cobrar cobrar(Long id) {
 		validarObligatorio(id, propMsg.getPropiedad(MSG_CUENTA_ID_OBLIGATORIO));
 
 		Optional<Cuenta> cuentaOpt = repositorio.buscarPorId(id);
@@ -42,32 +43,39 @@ public class ServicioCobrarCuenta {
 		}
 
 		Cuenta cuenta = cuentaOpt.get();
-		return calcular(cuenta);
+		return calcularCuenta(cuenta);
 	}
 
-	private BigDecimal calcular(Cuenta cuenta) {
+	private Cobrar calcularCuenta(Cuenta cuenta) {
 		Integer sobres = cuenta.getSobres();
 		LocalDateTime fechaIngreso = cuenta.getFechaIngreso();
 		LocalDateTime ahora = LocalDateTime.now();
 
-		Long tiempoInvertido = Duration.between(fechaIngreso, ahora).toMinutes();
-
-		Long tiempoPermitido = Long.parseLong(propConfig.getPropiedad(CONFIG_MINUTOS_PERMITIDOS)); // 15 min
+		Long minutosTranscurridos = Duration.between(fechaIngreso, ahora).toMinutes();
+		Long minutosPermitidos = Long.parseLong(propConfig.getPropiedad(CONFIG_MINUTOS_PERMITIDOS)); // 15 min
+		Long minutosAdicionales = 0L;
+		
 		BigDecimal valorMinutoAdicional = new BigDecimal(propConfig.getPropiedad(CONFIG_TARIFA_MINUTO_ADICIONAL)); // $200
 		BigDecimal valorSobreAdicional = new BigDecimal(propConfig.getPropiedad(CONFIG_TARIFA_SOBRE_ADICIONAL)); // $200
 		BigDecimal valorTarifaInicial = new BigDecimal(propConfig.getPropiedad(CONFIG_TARIFA_INICIAL)); // $1000
 
 		BigDecimal cobroTiempoAdicional = new BigDecimal(0);
 		BigDecimal cobroSobreAdicional = new BigDecimal(0);
+		
+		
 
-		if (tiempoInvertido > tiempoPermitido) {
-			cobroTiempoAdicional = new BigDecimal(tiempoInvertido - tiempoPermitido).multiply(valorMinutoAdicional);
+		if (minutosTranscurridos > minutosPermitidos) {
+			minutosAdicionales = minutosTranscurridos - minutosPermitidos;
+			cobroTiempoAdicional = new BigDecimal(minutosAdicionales).multiply(valorMinutoAdicional);
 		}
 		if (Objects.nonNull(sobres) && sobres > 1) {
 			cobroSobreAdicional = new BigDecimal(sobres - 1).multiply(valorSobreAdicional);
 		}
 
-		return valorTarifaInicial.add(cobroTiempoAdicional).add(cobroSobreAdicional);
+		BigDecimal valorTotal = valorTarifaInicial.add(cobroTiempoAdicional).add(cobroSobreAdicional);
+		cuenta.setTotalCobro(valorTotal);
+		
+		return new Cobrar(cuenta, valorSobreAdicional, valorMinutoAdicional, minutosPermitidos, minutosTranscurridos, minutosAdicionales);
 	}
 
 }

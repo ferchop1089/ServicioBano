@@ -1,6 +1,7 @@
 package com.ceiba.adn.serviciobano.aplicacion.manejador;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,4 +29,10 @@ public class ManejadorConsultasBano {
 		return new ComandoRespuesta<>(
 				this.consultasBano.listarBanos().stream().map(mapper::mapearDesde).collect(Collectors.toList()));
 	}
+
+	public ComandoRespuesta<ComandoBano> ejecutar(Long id) {
+		Optional<Bano> banoOpt = this.consultasBano.buscarBano(id);
+		return new ComandoRespuesta<>(mapper.mapearDesde(banoOpt.orElse(null)));
+	}
+
 }

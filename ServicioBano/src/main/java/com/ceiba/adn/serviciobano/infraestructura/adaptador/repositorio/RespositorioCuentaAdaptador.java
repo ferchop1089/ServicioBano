@@ -1,5 +1,6 @@
 package com.ceiba.adn.serviciobano.infraestructura.adaptador.repositorio;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -33,7 +34,18 @@ public class RespositorioCuentaAdaptador implements RepositorioCuenta {
 
 	private Long guardar(Cuenta cuenta) {
 		CuentaEntidad entidad = mapper.mapearDesde(cuenta);
-		return mapper.mapearA(jpa.saveAndFlush(entidad)).getId();
+		Long id = entidad.getId();
+		if (Objects.isNull(id)) {
+			id = jpa.findMaxId();
+			if (Objects.isNull(id)) {
+				id = 1L;
+			} else {
+				id++;
+			}
+			entidad.setId(id);
+		}
+		jpa.saveAndFlush(entidad);
+		return id;
 	}
 
 	@Override
