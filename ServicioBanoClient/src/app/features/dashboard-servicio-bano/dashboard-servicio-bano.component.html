@@ -1,6 +1,6 @@
 <div class="animated fadeIn fast">
     <div class="alert alert-dismissible fade show" [ngClass]="tipoAlert" *ngIf="showMensajeExitoso" role="alert">
-        <div [innerHTML]="mensaje"></div>
+        <div id="mensaje" [innerHTML]="mensaje"></div>
         <button type="button" (click)="ocultarMensaje()" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
