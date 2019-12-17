@@ -28,11 +28,6 @@ export class EliminarBanoComponent implements OnInit {
 
   public eliminar() {
     this.gestion.eliminarBano(this.idBano).subscribe({
-      next: () => { },
-      error: (err: any) => {
-        this.closeModal.nativeElement.click();
-        this.gestion.errorHandl(err);
-      },
       complete: () => {
         const tipoAlerta = 'alert-success';
         const mensaje = 'El registro fue borrado <strong>exitosamente</strong>';

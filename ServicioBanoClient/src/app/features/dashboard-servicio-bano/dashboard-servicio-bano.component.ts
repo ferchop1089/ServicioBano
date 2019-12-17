@@ -16,7 +16,6 @@ export class DashboardServicioBanoComponent implements OnInit {
 
   ngOnInit() {
     this.alert.changeEmitted$.subscribe(alert => {
-      console.log('paso alerta enviada');
       this.tipoAlert = alert.tipoAlerta;
       this.mensaje = alert.mensaje;
       this.showMensajeExitoso = true;
@@ -25,7 +24,6 @@ export class DashboardServicioBanoComponent implements OnInit {
 
   public ocultarMensaje() {
     this.showMensajeExitoso = false;
-    console.log('se ocultó el mensaje');
   }
 
 }

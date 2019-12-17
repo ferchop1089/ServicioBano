@@ -8,6 +8,7 @@ import { GestionBanoService } from '../../servicios/bano/gestion-bano.service';
 import { ComandoRespuestaBano } from '../../../core/modelo/ComandoRespuesta';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { isBoolean } from 'util';
+import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.service';
 
 @Component({
   selector: 'app-actualizar-bano',
@@ -22,7 +23,8 @@ export class ActualizarBanoComponent implements OnInit {
   banoObs: Observable<Bano>;
   idBano: number;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private gestion: GestionBanoService) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute,
+              private gestion: GestionBanoService, private eventAlert: EventoAlertService) {
 
   }
 
@@ -70,7 +72,13 @@ export class ActualizarBanoComponent implements OnInit {
         }
       }
       const banoUpdate: Bano = new Bano(this.idBano, bano.identificador, bano.estado);
-      this.gestion.actualizarBano(banoUpdate);
+      this.gestion.actualizarBano(banoUpdate).subscribe({
+        complete: () => {
+          const tipoAlerta = 'alert-success';
+          const mensaje = 'El registro fue actualizado <strong>exitosamente</strong>';
+          this.eventAlert.emitChange(new Alert(tipoAlerta, mensaje));
+        }
+      });
     }
   }
 

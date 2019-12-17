@@ -31,11 +31,6 @@ export class CobrarCuentaComponent implements OnInit {
 
   public pagar(id: number) {
     this.gestion.pagarCuenta(id).subscribe({
-      next: () => { },
-      error: (err: any) => {
-        this.closeModal.nativeElement.click();
-        this.gestion.errorHandl(err);
-      },
       complete: () => {
         const tipoAlerta = 'alert-success';
         const mensaje = 'La cuenta fue pagadada <strong>exitosamente</strong>';

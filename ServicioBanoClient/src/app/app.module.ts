@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,10 +16,10 @@ import { EliminarBanoComponent } from './features/bano/eliminar-bano/eliminar-ba
 import { CrearCuentaComponent } from './features/cuenta/crear-cuenta/crear-cuenta.component';
 import { ActualizarCuentaComponent } from './features/cuenta/actualizar-cuenta/actualizar-cuenta.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { GestionBanoService } from './features/servicios/bano/gestion-bano.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CobrarCuentaComponent } from './features/cuenta/cobrar-cuenta/cobrar-cuenta.component';
+import { ManejadorErroresService } from './shared/manejo-errores/manejador-errores.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import { CobrarCuentaComponent } from './features/cuenta/cobrar-cuenta/cobrar-cu
     FormsModule,
     HttpClientModule
   ],
-  providers: [GestionBanoService],
+  providers: [{ provide: ErrorHandler, useClass: ManejadorErroresService }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

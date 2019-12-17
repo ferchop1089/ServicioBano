@@ -24,7 +24,7 @@ export class GestionCuentaService extends ServicioBase {
       .pipe(map(idNuevo => {
         return new ComandoRespuestaCuenta(new Cuenta(idNuevo, cuenta.idBano, cuenta.fechaIngreso,
           cuenta.estado, cuenta.sobres, cuenta.totalCobro));
-      }), catchError(err => this.errorHandl(err)));
+      }));
   }
 
   public buscarCuentaPorIdBano(idBano: number): Observable<ComandoRespuestaCuenta> {

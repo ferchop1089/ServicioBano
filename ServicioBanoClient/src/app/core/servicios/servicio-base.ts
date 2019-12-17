@@ -18,7 +18,7 @@ export class ServicioBase {
         })
     };
 
-    public errorHandl(error) {
+    public errorHandl0(error) {
         let errorMessage = '';
         if (error.error instanceof ErrorEvent) {
             // Get client-side error

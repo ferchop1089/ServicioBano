@@ -57,8 +57,7 @@ export class ListarBanosComponent implements OnInit {
           const l: Bano2 = new Bano2(element.id, element.identificador, element.estado, clase, habilitarEliminar, habilitarModificar);
           this.listaBanos[index] = l;
         }
-      },
-      error: (err: any) => this.gestion.errorHandl(err)
+      }
     });
     console.log('Finaliza el ngOnInit del listar baños. Elementos listados: ' + this.listaBanos.length);
   }

@@ -18,14 +18,12 @@ export class CrearCuentaComponent implements OnInit {
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private activatedRoute: ActivatedRoute,
-    private gestion: GestionCuentaService, private eventAlert: EventoAlertService) {
+              private gestion: GestionCuentaService, private eventAlert: EventoAlertService) {
   }
 
   ngOnInit() {
     this.activatedRoute.paramMap.pipe(map(paramMap => paramMap.get('idBano'))).subscribe({
-      next: (idBano: string) => {
-        this.idBano = Number(idBano);
-      }
+      next: (idBano: string) => this.idBano = Number(idBano)
     });
 
     this.form = this.formBuilder.group({
@@ -35,11 +33,11 @@ export class CrearCuentaComponent implements OnInit {
 
   public submit() {
     if (this.form.valid) {
-      const b: Cuenta = this.form.value;
-      b.id = null;
-      b.idBano = this.idBano;
-      b.estado = EstadoCuenta.ABIERTA;
-      this.gestion.crearCuenta(b).subscribe({
+      const cuenta: Cuenta = this.form.value;
+      cuenta.id = null;
+      cuenta.idBano = this.idBano;
+      cuenta.estado = EstadoCuenta.ABIERTA;
+      this.gestion.crearCuenta(cuenta).subscribe({
         next: () => {
           const tipoAlerta = 'alert-success';
           const mensaje = 'El registro fue actualizado <strong>exitosamente</strong>';
