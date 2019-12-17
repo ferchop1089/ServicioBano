@@ -12,29 +12,29 @@ import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.
 })
 export class CrearBanoComponent implements OnInit {
 
-  checkoutForm: FormGroup;
+  formulario: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private gestion: GestionBanoService, private eventAlert: EventoAlertService) {
   }
 
   ngOnInit() {
-    this.checkoutForm = this.formBuilder.group({
+    this.formulario = this.formBuilder.group({
       identificador: ['', Validators.required]
     });
   }
 
   public submit() {
-    if (this.checkoutForm.valid) {
-      const b: Bano = this.checkoutForm.value;
-      b.id = null;
-      b.estado = EstadoBano.DISPONIBLE;
+    if (this.formulario.valid) {
+      const bano: Bano = this.formulario.value;
+      bano.id = null;
+      bano.estado = EstadoBano.DISPONIBLE;
 
-      this.gestion.crearBano(b).subscribe({
+      this.gestion.crearBano(bano).subscribe({
         complete: () => {
           const tipoAlerta = 'alert-success';
           const mensaje = 'El registro fue creado <strong>exitosamente</strong>';
           this.eventAlert.emitChange(new Alert(tipoAlerta, mensaje));
-          this.checkoutForm.reset();
+          this.formulario.reset();
         }
       });
     }

@@ -1,9 +1,9 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
+<form [formGroup]="formulario" (ngSubmit)="submit()">
     <div class="form-group animated fadeIn fast">
         <label for="sobres">No. de sobres:</label>
         <input type="number" min="0" aria-readonly="true" formControlName="sobres" required class="form-control" id="sobres" aria-describedby="sobresHelp" value="1">
         <small id="sobresHelp" class="form-text text-muted">Ingresa el número de sobres.</small>
-        <div *ngIf="form.controls.sobres.errors && form.controls.sobres.touched" class="error">
+        <div *ngIf="formulario.controls.sobres.errors && formulario.controls.sobres.touched" class="error">
             *Campo requerido
         </div>
     </div>

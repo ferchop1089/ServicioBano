@@ -10,7 +10,7 @@ export class CompartirIdBanoService {
 
   private emitChangeSource = new Subject<any>();
   changeEmitted$ = this.emitChangeSource.asObservable();
-  
+
   public emitChange(change: any) {
     this.emitChangeSource.next(change);
   }

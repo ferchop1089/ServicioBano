@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Cuenta } from '../../../core/modelo/Cuenta';
 import { ComandoRespuestaCuenta, ComandoRespuestaCobrar } from '../../../core/modelo/ComandoRespuesta';
 import { Observable } from 'rxjs';
-import { EventoAlertService } from '../../../shared/eventos/evento-alert.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { ServicioBase } from '../../../core/servicios/servicio-base';
@@ -15,8 +14,8 @@ export class GestionCuentaService extends ServicioBase {
 
   private baseUrl = environment.url_cuenta;
 
-  constructor(eventAlert: EventoAlertService, private http: HttpClient) {
-    super(eventAlert);
+  constructor(private http: HttpClient) {
+    super();
   }
 
   public crearCuenta(cuenta: Cuenta): Observable<ComandoRespuestaCuenta> {

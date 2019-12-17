@@ -16,12 +16,12 @@ export class EliminarBanoComponent implements OnInit {
   @ViewChild('ocultarModalEliminarBano', { static: false })
   closeModal: ElementRef;
 
-  constructor(private shared: CompartirIdBanoService, private eventEliminar: EventoEliminarBanoService,
+  constructor(private compartirIdBano: CompartirIdBanoService, private eventEliminar: EventoEliminarBanoService,
               private eventAlert: EventoAlertService, private gestion: GestionBanoService) {
   }
 
   ngOnInit() {
-    this.shared.changeEmitted$.subscribe(id => {
+    this.compartirIdBano.changeEmitted$.subscribe(id => {
       this.idBano = id;
     });
   }

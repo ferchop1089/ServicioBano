@@ -37,8 +37,8 @@ export class ActualizarBanoComponent implements OnInit {
     this.route.paramMap.pipe(map(paramMap => paramMap.get('id'))).subscribe({
       next: (id: string) => {
         this.banoObs = this.gestion.buscarBano(Number(id))
-          .pipe(map(t => t.respuesta), catchError(err => this.gestion.errorHandl(err)))
-          .pipe(tap(ba => this.formulario.patchValue(ba)));
+          .pipe(map(response => response.respuesta))
+          .pipe(tap(bano => this.formulario.patchValue(bano)));
       }
     });
 
@@ -61,11 +61,11 @@ export class ActualizarBanoComponent implements OnInit {
 
   public submit() {
     if (this.formulario.valid) {
-      const valor: any = this.formulario.get('estado').value;
+      const valorEstado: any = this.formulario.get('estado').value;
       const bano: Bano = this.formulario.value;
 
-      if (isBoolean(valor)) {
-        if (valor) {
+      if (isBoolean(valorEstado)) {
+        if (valorEstado) {
           bano.estado = EstadoBano.DISPONIBLE;
         } else {
           bano.estado = EstadoBano.FUERA_SERVICIO;

@@ -8,14 +8,14 @@
                 <div class="col-6 text-left">
                     <div class="previous">
                         <button type="button" class="btn btn-default btn-lg" (click)="redireccionarConfigBano(bano.id)" title="Actualizar baño">
-                            <fa-icon [icon]="faCog"></fa-icon>
+                            <fa-icon [icon]="iconConfig"></fa-icon>
                         </button>
                     </div>
                 </div>
                 <div class="col-6 text-right">
                     <div class="next">
                         <button type="button" class="btn btn-default btn-lg" [disabled]="!bano.habilitarEliminar" (click)="publicarIdBano(bano.id)" title="Eliminar baño" data-toggle="modal" data-target="#eliminarBanoModal">
-                            <fa-icon [icon]="faTimes"></fa-icon>
+                            <fa-icon [icon]="iconDeleted"></fa-icon>
                         </button>
                     </div>
                 </div>

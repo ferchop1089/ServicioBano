@@ -15,15 +15,13 @@ import { EstadoBano } from '../../../core/modelo/EstadoBano';
 })
 export class ListarBanosComponent implements OnInit {
 
-  listaBanos: Bano2[] = [];
-  faCog = faCog;
-  faTimes = faTimes;
+  listaBanos: BanoCustom[] = [];
+  iconConfig = faCog;
+  iconDeleted = faTimes;
 
   constructor(private router: Router, private activateRoute: ActivatedRoute,
-              private gestion: GestionBanoService,
-              private shared: CompartirIdBanoService,
+              private gestion: GestionBanoService, private compartirIdBano: CompartirIdBanoService,
               private eventEliminar: EventoEliminarBanoService) {
-
   }
 
   ngOnInit() {
@@ -33,8 +31,8 @@ export class ListarBanosComponent implements OnInit {
     });
 
     this.gestion.listarBanos().subscribe({
-      next: (rta: ComandoRespuestaBanoLista) => {
-        const lista: Bano[] = rta.respuesta;
+      next: (response: ComandoRespuestaBanoLista) => {
+        const lista: Bano[] = response.respuesta;
         for (let index = 0; index < lista.length; index++) {
           const element: Bano = lista[index];
           let clase: string;
@@ -54,12 +52,12 @@ export class ListarBanosComponent implements OnInit {
             habilitarModificar = false;
           }
 
-          const l: Bano2 = new Bano2(element.id, element.identificador, element.estado, clase, habilitarEliminar, habilitarModificar);
-          this.listaBanos[index] = l;
+          const bano: BanoCustom = new BanoCustom(element.id, element.identificador, element.estado,
+            clase, habilitarEliminar, habilitarModificar);
+          this.listaBanos[index] = bano;
         }
       }
     });
-    console.log('Finaliza el ngOnInit del listar baños. Elementos listados: ' + this.listaBanos.length);
   }
 
   public redireccionar(estado: string, idBano: number) {
@@ -77,12 +75,12 @@ export class ListarBanosComponent implements OnInit {
   }
 
   public publicarIdBano(id: number) {
-    this.shared.emitChange(id);
+    this.compartirIdBano.emitChange(id);
   }
 
 }
 
-class Bano2 {
+class BanoCustom {
 
   id: number;
   identificador: string;

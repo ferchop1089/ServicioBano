@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Bano } from 'src/app/core/modelo/Bano';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.service';
 import { ComandoRespuestaBano, ComandoRespuestaBanoLista } from '../../../core/modelo/ComandoRespuesta';
 import { map, catchError } from 'rxjs/operators';
 import { ServicioBase } from '../../../core/servicios/servicio-base';
@@ -15,8 +14,8 @@ export class GestionBanoService extends ServicioBase {
 
   private baseUrl = environment.url_bano;
 
-  constructor(private http: HttpClient, eventAlert: EventoAlertService) {
-    super(eventAlert);
+  constructor(private http: HttpClient) {
+    super();
   }
 
   public listarBanos(): Observable<ComandoRespuestaBanoLista> {

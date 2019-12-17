@@ -1,10 +1,10 @@
-<form [formGroup]="checkoutForm" (ngSubmit)="submit()">
+<form [formGroup]="formulario" (ngSubmit)="submit()">
     <div class="form-group animated fadeIn fast">
         <label for="identificador">Nombre</label>
         <input type="text" formControlName="identificador" class="form-control" id="identificador" aria-describedby="identificadorHelp" required>
         <small id="identificadorHelp" class="form-text text-muted">El nombre del baño no debe repetirse.</small>
 
-        <div *ngIf="checkoutForm.controls.identificador.errors && checkoutForm.controls.identificador.touched" class="error">
+        <div *ngIf="formulario.controls.identificador.errors && formulario.controls.identificador.touched" class="error">
             *Campo requerido
         </div>
     </div>

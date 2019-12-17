@@ -18,7 +18,7 @@ export class CobrarCuentaComponent implements OnInit {
   @ViewChild('ocultarModalCobrar', { static: false })
   closeModal: ElementRef;
   cobrar: Cobrar = new Cobrar(new Cuenta(0, 0, '', '', 0, 0), 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  faSyncAlt = faSyncAlt;
+  iconRefrescar = faSyncAlt;
 
   constructor(private gestion: GestionCuentaService, private eventCobrar: EventoCobrarCuentaService,
               private eventAlert: EventoAlertService, private router: Router, private activateRoute: ActivatedRoute) { }

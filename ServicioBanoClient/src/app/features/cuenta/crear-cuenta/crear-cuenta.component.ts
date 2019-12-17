@@ -15,10 +15,11 @@ import { EventoAlertService, Alert } from '../../../shared/eventos/evento-alert.
 export class CrearCuentaComponent implements OnInit {
 
   private idBano: number;
-  form: FormGroup;
+  formulario: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private activatedRoute: ActivatedRoute,
-              private gestion: GestionCuentaService, private eventAlert: EventoAlertService) {
+  constructor(private formBuilder: FormBuilder, private router: Router,
+              private activatedRoute: ActivatedRoute, private gestion: GestionCuentaService,
+              private eventAlert: EventoAlertService) {
   }
 
   ngOnInit() {
@@ -26,14 +27,14 @@ export class CrearCuentaComponent implements OnInit {
       next: (idBano: string) => this.idBano = Number(idBano)
     });
 
-    this.form = this.formBuilder.group({
+    this.formulario = this.formBuilder.group({
       sobres: ['1', Validators.required]
     });
   }
 
   public submit() {
-    if (this.form.valid) {
-      const cuenta: Cuenta = this.form.value;
+    if (this.formulario.valid) {
+      const cuenta: Cuenta = this.formulario.value;
       cuenta.id = null;
       cuenta.idBano = this.idBano;
       cuenta.estado = EstadoCuenta.ABIERTA;

@@ -18,10 +18,11 @@ export class ActualizarCuentaComponent implements OnInit {
 
   private idBano: number;
   cuenta: Cuenta;
-  form: FormGroup;
+  formulario: FormGroup;
 
   constructor(private gestion: GestionCuentaService, private activatedRoute: ActivatedRoute,
-              private formBuilder: FormBuilder, private eventAlert: EventoAlertService, private eventCobrar: EventoCobrarCuentaService) { }
+              private formBuilder: FormBuilder, private eventAlert: EventoAlertService,
+              private eventCobrar: EventoCobrarCuentaService) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.pipe(map(paramMap => paramMap.get('idBano'))).subscribe({
@@ -30,7 +31,7 @@ export class ActualizarCuentaComponent implements OnInit {
         this.gestion.buscarCuentaPorIdBano(this.idBano).subscribe({
           next: (comando: ComandoRespuestaCuenta) => {
             this.cuenta = comando.respuesta;
-            this.form = this.formBuilder.group({
+            this.formulario = this.formBuilder.group({
               sobres: [comando.respuesta.sobres, Validators.required]
             });
           }
@@ -38,15 +39,15 @@ export class ActualizarCuentaComponent implements OnInit {
       }
     });
     // Si se retira genera error
-    this.form = this.formBuilder.group({
+    this.formulario = this.formBuilder.group({
       sobres: ['', Validators.required]
     });
   }
 
   public submit() {
-    if (this.form.valid) {
-      const bano: Cuenta = this.form.value;
-      this.cuenta.sobres = bano.sobres;
+    if (this.formulario.valid) {
+      const cuentaValor: Cuenta = this.formulario.value;
+      this.cuenta.sobres = cuentaValor.sobres;
       this.gestion.actualizarCuenta(this.cuenta).subscribe({
         next: () => {
           const tipoAlerta = 'alert-success';
