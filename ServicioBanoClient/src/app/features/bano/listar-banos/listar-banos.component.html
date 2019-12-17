@@ -5,26 +5,20 @@
     <div class="col-sm-3 mb-1" *ngFor="let bano of listaBanos">
         <div class="card">
             <div class="row">
-                <div class="col-6 text-left">
-                    <div class="previous">
-                        <button type="button" class="btn btn-default btn-lg" (click)="redireccionarConfigBano(bano.id)" title="Actualizar baño">
-                            <fa-icon [icon]="iconConfig"></fa-icon>
-                        </button>
-                    </div>
+                <div class="btn-group ml-2" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-default btn-lg" (click)="redireccionarConfigBano(bano.id)" title="Actualizar baño">
+                        <fa-icon [icon]="iconConfig"></fa-icon>
+                    </button>
                 </div>
-                <div class="col-6 text-right">
-                    <div class="next">
-                        <button type="button" class="btn btn-default btn-lg" [disabled]="!bano.habilitarEliminar" (click)="publicarIdBano(bano.id)" title="Eliminar baño" data-toggle="modal" data-target="#eliminarBanoModal">
-                            <fa-icon [icon]="iconDeleted"></fa-icon>
-                        </button>
-                    </div>
+                <div class="btn-group mr-2 ml-auto" role="group" aria-label="Second group">
+                    <button type="button" class="btn btn-default btn-lg" [disabled]="!bano.habilitarEliminar" (click)="publicarIdBano(bano.id)" title="Eliminar baño" data-toggle="modal" data-target="#eliminarBanoModal">
+                        <fa-icon [icon]="iconDeleted"></fa-icon>
+                    </button>
                 </div>
             </div>
-
             <div class="card-body">
                 <h5 class="card-title">{{ bano.identificador }}</h5>
                 <p class="card-text" [ngClass]="bano.clase">{{ bano.estado }}</p>
-                <!--<a [routerLink]="['../crearcuenta',bano.id]" class="btn btn-info btn-block">Modificar</a>-->
                 <button type="button" class="btn btn-outline-info btn-block" [disabled]="!bano.habilitarModificar" (click)="redireccionar(bano.estado, bano.id)">Modificar</button>
             </div>
         </div>

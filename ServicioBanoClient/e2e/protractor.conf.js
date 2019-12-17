@@ -10,13 +10,14 @@ const { SpecReporter } = require('jasmine-spec-reporter');
 exports.config = {
     allScriptsTimeout: 11000,
     specs: [
-        './src/app/features/bano/crear-bano/crear-bano.e2e-spec.js'
+        './src/app/features/bano/crear-bano/crear-bano.e2e-spec.js',
+        './src/app/features/bano/listar-bano/listar-bano.e2e-spec.js'
     ],
     capabilities: {
         browserName: 'chrome'
     },
     directConnect: true,
-    //baseUrl: 'http://localhost:4200/',
+    baseUrl: 'http://localhost:4200/',
     framework: 'jasmine',
     jasmineNodeOpts: {
         showColors: true,

@@ -1,7 +1,7 @@
 describe('Crear baño', function() {
 
     it('Debería crear un baño', function() {
-        browser.get('http://localhost:4200/dashboard/crearbano');
+        browser.get('dashboard/crearbano');
         let campoIdentificador = element(by.id('identificador'));
         let nombreBano = 'Baño ' + Math.random().toString(36).substring(2, 7);
         campoIdentificador.sendKeys(nombreBano);
