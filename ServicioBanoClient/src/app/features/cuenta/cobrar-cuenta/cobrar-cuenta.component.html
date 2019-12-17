@@ -32,8 +32,15 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary mr-2" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-outline-primary" (click)="pagar(cobrar.cuenta.id)">Pagar</button>
+                <div class="btn-group mr-auto" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-outline-secondary mr-2" (click)="refrescarCuenta(cobrar.cuenta.id)">
+                        <fa-icon [icon]="faSyncAlt"></fa-icon>
+                    </button>
+                </div>
+                <div class="btn-group" role="group" aria-label="Second group">
+                    <button type="button" class="btn btn-outline-secondary mr-2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-outline-primary" (click)="pagar(cobrar.cuenta.id)">Pagar</button>
+                </div>
             </div>
         </div>
     </div>
